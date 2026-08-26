@@ -1,0 +1,25 @@
+[project]
+name = "python-mastery-course"
+version = "1.0.0"
+description = "A self-paced, hands-on Python mastery course. Study it in VS Code with Claude Code as your instructor."
+requires-python = ">=3.12"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.6",
+    "mypy>=1.11",
+]
+
+[tool.pytest.ini_options]
+addopts = "--import-mode=importlib"
+norecursedirs = [".verify", "playground", "solutions", "system-prompt"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
