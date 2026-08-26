@@ -1,0 +1,41 @@
+order_id,date,region,product,quantity,price
+S001,2024-01-03,North,Widget,1,10.00
+S002,01/07/2024,north,Widget,2,$10.00
+S003,2024/01/12,NORTH,Widget,3,10
+S004,15-01-2024,North,Widget,4,$10
+S005,2024-01-22, North ,Widget,5,10.00
+S006,2024-02-02,North,Widget,1,10.00
+S007,02/09/2024,north,Widget,2,$10.00
+S008,2024/02/14,NORTH,Widget,3,10.00
+S009,19-02-2024,North ,Widget,4,$10
+S010,2024-02-24,north,Widget,5,10.00
+S011,2024-02-27,North,Widget,1,10.00
+S012,2024-01-04,South,Gadget,1,20.00
+S013,01/11/2024,south,Gadget,2,$20.00
+S014,2024/01/16,SOUTH,Gadget,3,20
+S015,18-01-2024,South ,Gadget,4,$20
+S016,2024-01-25,south,Gadget,5,20.00
+S017,2024-01-29,South,Gadget,1,20.00
+S018,2024-02-03,South,Gadget,1,20.00
+S019,02/10/2024,south,Gadget,2,$20.00
+S020,2024/02/15,SOUTH,Gadget,3,20.00
+S021,20-02-2024,South ,Gadget,4,$20
+S022,2024-02-23,South,Gadget,5,20.00
+S001,2024-01-03,North,Widget,1,10.00
+S006,2024-02-02,North,Widget,1,10.00
+S012,2024-01-04,South,Gadget,1,20.00
+S018,2024-02-03,South,Gadget,1,20.00
+S023,2024-01-08,,Widget,2,10.00
+S024,2024-01-09,N/A,Widget,2,10.00
+S025,2024-01-10,North,,2,10.00
+S026,2024-01-11,North,Widget,,10.00
+S027,2024-01-12,North,Widget,N/A,10.00
+S028,2024-01-13,North,Widget,2,
+S029,2024-01-14,North,Widget,-3,10.00
+S030,2024-01-15,South,Gadget,-1,20.00
+S031,notadate,North,Widget,2,10.00
+S032,2024-13-40,South,Gadget,2,20.00
+S033,2024-01-16,North,Widget,2,free
+S034,2024-01-17,South,Gadget,2,abc
+S035,2024-01-18,North,Widget,two,10.00
+S036,2024-01-19,South,Gadget,0,20.00
