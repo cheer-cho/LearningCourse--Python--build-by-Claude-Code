@@ -10,6 +10,16 @@ dev = [
     "pytest>=8.0",
     "ruff>=0.6",
     "mypy>=1.11",
+    "hypothesis>=6.165.10",
+]
+frameworks = [
+    "fastapi>=0.141.1",
+    "httpx>=0.28.1",
+    "numpy>=2.5.2",
+    "pandas>=3.0.5",
+    "pydantic>=2.13.4",
+    "sqlalchemy>=2.0.52",
+    "typer>=0.27.1",
 ]
 
 [tool.pytest.ini_options]

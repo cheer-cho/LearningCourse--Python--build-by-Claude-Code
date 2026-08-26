@@ -9,6 +9,7 @@ tests should be GREEN when run against the reference solutions.
 
 from __future__ import annotations
 
+import os
 import re
 import shutil
 import subprocess
@@ -16,7 +17,9 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-VERIFY_DIR = ROOT / ".verify"
+# Per-process run dir so concurrent invocations (e.g. several modules being
+# maintained at once) never delete each other's working copies.
+VERIFY_DIR = ROOT / ".verify" / f"run-{os.getpid()}"
 
 
 def module_dirs() -> list[Path]:
@@ -71,7 +74,7 @@ def main(argv: list[str]) -> int:
         return 1
 
     shutil.rmtree(VERIFY_DIR, ignore_errors=True)
-    VERIFY_DIR.mkdir(parents=True)
+    VERIFY_DIR.mkdir(parents=True)  # parents covers .verify/ itself
     shutil.copyfile(ROOT / "conftest.py", VERIFY_DIR / "conftest.py")
     pyproject = ROOT / "pyproject.toml"
     if pyproject.exists():
