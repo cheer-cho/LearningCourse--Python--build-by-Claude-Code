@@ -5,7 +5,7 @@
 Every Python program is just values with names attached to them.
 Before you can write `if`s and loops, you need to know what the values
 themselves can do — arithmetic, text, truth — and, crucially, what a
-variable actually *is* in Python: not a box holding a value, but a
+variable actually _is_ in Python: not a box holding a value, but a
 label pointing at one. That idea trips up more beginners than any
 syntax rule in this course.
 
@@ -24,10 +24,10 @@ graph TD
     MU --> Dict["dict — {'a': 1}"]
 ```
 
-*What to notice: `bool` is a subtype of `int` (`True == 1`). Everything
+_What to notice: `bool` is a subtype of `int` (`True == 1`). Everything
 on the immutable side is what this module covers; the mutable side is
 a preview — lists get their full module in 04, but you need a taste of
-mutability now to understand aliasing below.*
+mutability now to understand aliasing below._
 
 ## Numbers
 
@@ -90,10 +90,10 @@ graph LR
     end
 ```
 
-*What to notice: `b = a` makes `b` point at the same list as `a` — no
+_What to notice: `b = a` makes `b` point at the same list as `a` — no
 copy happens. `b.append(3)` mutates that shared list, so `a` sees it
 too. But `b = b + [3]` builds a brand-new list and re-points `b` at
-it — `a` is untouched.*
+it — `a` is untouched._
 
 ```python
 a = [1, 2]
@@ -133,15 +133,26 @@ to catch that in module 06 — for now, let it propagate.
 
 ## Gotchas
 
-| Gotcha | Example | Why |
-| --- | --- | --- |
-| Float rounding error | `0.1 + 0.2` | `0.30000000000000004` — binary floats can't represent 0.1 exactly |
-| Floor division with negatives | `-7 // 2` | `-4`, not `-3` — floors toward negative infinity |
-| `round()` banker's rounding | `round(2.5)` | `2`, not 3 — rounds to the nearest *even* number on ties |
-| `is` on small ints | `1000 is 1000` | may be `True` or `False` depending on interpreter caching — never rely on it |
-| Strings are immutable | `s[0] = "x"` | raises `TypeError` — methods like `.replace()` return a *new* string |
+| Gotcha                        | Example        | Why                                                                          |
+| ----------------------------- | -------------- | ---------------------------------------------------------------------------- |
+| Float rounding error          | `0.1 + 0.2`    | `0.30000000000000004` — binary floats can't represent 0.1 exactly            |
+| Floor division with negatives | `-7 // 2`      | `-4`, not `-3` — floors toward negative infinity                             |
+| `round()` banker's rounding   | `round(2.5)`   | `2`, not 3 — rounds to the nearest _even_ number on ties                     |
+| `is` on small ints            | `1000 is 1000` | may be `True` or `False` depending on interpreter caching — never rely on it |
+| Strings are immutable         | `s[0] = "x"`   | raises `TypeError` — methods like `.replace()` return a _new_ string         |
 
 ## Try it now
 
 → `exercises/ex01_numbers.py` through `ex08_swap_and_augment.py`, then
 `checkpoint_02.py`. Check with `uv run python scripts/test.py 2`.
+
+---
+
+```mermaid
+flowchart LR
+    a([a]) --> L["[1, 2, 3, 4]"]
+    b([b]) --> L
+    x([x]) --> N11["11"]
+    y([y]) --> N10["10"]
+
+```
