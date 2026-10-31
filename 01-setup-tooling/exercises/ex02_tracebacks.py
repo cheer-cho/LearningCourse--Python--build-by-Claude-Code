@@ -31,7 +31,7 @@ def order_total(price, quantity):
         NameError: name 'subtotl' is not defined. Did you mean: 'subtotal'?
     """
     subtotal = price * quantity
-    return subtotl
+    return subtotal
 
 
 def receipt_line(item_name, count):
@@ -54,7 +54,8 @@ def receipt_line(item_name, count):
                    ~~~~~~~~~~~~~~~~~^~~~~~~
         TypeError: can only concatenate str (not "int") to str
     """
-    return item_name + ": " + count
+    # return item_name + ": " + str(count)
+    return f"{item_name}: {count}"
 
 
 def average_score(scores):
@@ -77,4 +78,7 @@ def average_score(scores):
                    ~~~~~~~~~~~~^~~~~~~~~~~~~
         ZeroDivisionError: division by zero
     """
+    if not scores:
+        return 0.0
+
     return sum(scores) / len(scores)

@@ -22,7 +22,9 @@ def main():
     Examples:
         main() -> prints "=== Setup & Tooling ===", returns None.
     """
+
     print("=== Setup & Tooling ===")
 
 
-main()
+if __name__ == "__main__":
+    main()
