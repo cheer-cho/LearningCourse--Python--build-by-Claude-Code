@@ -21,7 +21,7 @@ def build_card(name, age):
     Examples:
         build_card("Ada", 28) -> "Name: Ada\\nAge: 28"
     """
-    raise NotImplementedError
+    return f"Name: {name}\nAge: {age}"
 
 
 def main():

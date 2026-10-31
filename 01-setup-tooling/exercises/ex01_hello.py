@@ -20,4 +20,5 @@ def greet(name):
         greet("Ada") -> "Hello, Ada!"
         greet("Grace") -> "Hello, Grace!"
     """
-    raise NotImplementedError
+
+    return f"Hello, {name}!"

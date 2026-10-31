@@ -9,8 +9,6 @@ Run:  uv run pytest 01-setup-tooling -k ex04
 Lint: uv run ruff check 01-setup-tooling/exercises/ex04_ruff_cleanup.py
 """
 
-import os
-
 
 def total_unique_length(words):
     """Return the summed length of the distinct words in `words`.
@@ -27,11 +25,10 @@ def total_unique_length(words):
         total_unique_length([]) -> 0
         total_unique_length(["cat", "cat", "cat"]) -> 3
     """
-    list = []
+    unique_words = []
     total = 0
-    unused = 42
-    for word    in words:
-        if word not in list:
-            list.append( word )
-            total = total+len(word)
+    for word in words:
+        if word not in unique_words:
+            unique_words.append(word)
+            total += len(word)
     return total
