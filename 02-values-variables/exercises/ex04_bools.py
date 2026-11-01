@@ -20,7 +20,9 @@ def is_teen(age: int) -> bool:
     is_teen(20) -> False
     is_teen(5) -> False
     """
-    raise NotImplementedError
+    if age >= 13 and age <= 19:
+        return True
+    return False
 
 
 def same_object(a: object, b: object) -> bool:
@@ -28,7 +30,9 @@ def same_object(a: object, b: object) -> bool:
 
     same_object([1, 2], [1, 2]) -> False  (equal values, different lists)
     """
-    raise NotImplementedError
+    if a is b:
+        return True
+    return False
 
 
 def same_value(a: object, b: object) -> bool:
@@ -36,4 +40,6 @@ def same_value(a: object, b: object) -> bool:
 
     same_value([1, 2], [1, 2]) -> True  (different lists, same contents)
     """
-    raise NotImplementedError
+    if a == b:
+        return True
+    return False
