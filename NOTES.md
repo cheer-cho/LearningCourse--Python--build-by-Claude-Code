@@ -35,4 +35,4 @@ quizzes and reviews. Format:
 ## 2026-11-01 — 02 / ex04_bools
 **Mistake:** Wrapped boolean expressions in `if cond: return True / return False` (all three functions). Also wrote `age >= 13 and age <= 19` instead of a chained comparison.
 **Correction:** Comparisons (`==`, `is`, `<=`) already evaluate to a `bool`, so `return cond` directly. Python allows chained comparisons: `13 <= age <= 19`.
-**Status:** open
+**Status:** improving: wrote all three one-liners (incl. the chained comparison) after hints

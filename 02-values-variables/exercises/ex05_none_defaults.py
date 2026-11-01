@@ -20,7 +20,7 @@ def label_or_default(label: str | None) -> str:
     label_or_default("Ada") -> "Ada"
     label_or_default(None) -> "(none)"
     """
-    raise NotImplementedError
+    return label if label is not None else "(none)"
 
 
 def first_non_none(a: object | None, b: object) -> object:
@@ -33,4 +33,4 @@ def first_non_none(a: object | None, b: object) -> object:
     first_non_none(None, "Unknown") -> "Unknown"
     first_non_none(0, "Unknown") -> 0  (0 is not None, so keep it)
     """
-    raise NotImplementedError
+    return a if a is not None else b
