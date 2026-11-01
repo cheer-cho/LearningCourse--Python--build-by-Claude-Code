@@ -21,7 +21,7 @@ def parse_price(text: str) -> float:
     parse_price("9.99") -> 9.99
     parse_price("free") -> raises ValueError
     """
-    raise NotImplementedError
+    return float(text.strip().removeprefix("$"))
 
 
 def age_next_year(age_text: str) -> int:
@@ -34,4 +34,4 @@ def age_next_year(age_text: str) -> int:
     age_next_year("0") -> 1
     age_next_year("old") -> raises ValueError
     """
-    raise NotImplementedError
+    return int(age_text) + 1
