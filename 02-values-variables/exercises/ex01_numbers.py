@@ -6,7 +6,10 @@ Scenario: small money- and time-related calculations. Covers `+ - * /
 Check: uv run python scripts/test.py 2 -k ex01
 """
 
+
 from __future__ import annotations
+
+import math
 
 
 def minutes_to_hours_minutes(total_minutes: int) -> tuple[int, int]:
@@ -18,8 +21,16 @@ def minutes_to_hours_minutes(total_minutes: int) -> tuple[int, int]:
     minutes_to_hours_minutes(125) -> (2, 5)
     minutes_to_hours_minutes(59) -> (0, 59)
     minutes_to_hours_minutes(180) -> (3, 0)
+
+    Example
+    150m
+    150 // 60 --> get hours
+    150 % 60 --> get reminder = minute
     """
-    raise NotImplementedError
+    hours = total_minutes // 60
+    minutes = total_minutes % 60
+
+    return (hours, minutes)
 
 
 def apply_discount(price: float, percent_off: float) -> float:
@@ -31,7 +42,7 @@ def apply_discount(price: float, percent_off: float) -> float:
     apply_discount(50.0, 20) -> 40.0
     apply_discount(19.99, 10) -> 17.99
     """
-    raise NotImplementedError
+    return round(price * (1 - percent_off / 100), 2)
 
 
 def power_area(radius: float) -> float:
@@ -42,4 +53,4 @@ def power_area(radius: float) -> float:
     power_area(2) -> 12.57
     power_area(1) -> 3.14
     """
-    raise NotImplementedError
+    return round(math.pi * radius ** 2, 2)

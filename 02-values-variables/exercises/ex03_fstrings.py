@@ -20,7 +20,7 @@ def price_tag(name: str, price: float) -> str:
     price_tag("Widget", 3.5) -> "Widget........$   3.50"
     price_tag("Mug", 12.0) -> "Mug...........$  12.00"
     """
-    raise NotImplementedError
+    return f"{name:.<14}$ {price:>6.2f}"
 
 
 def progress_line(pct: float) -> str:
@@ -32,7 +32,7 @@ def progress_line(pct: float) -> str:
     progress_line(7) -> "Progress:   7.0%"
     progress_line(100) -> "Progress: 100.0%"
     """
-    raise NotImplementedError
+    return f"Progress: {pct:>5.1f}%"
 
 
 def debug_pair(x: object) -> str:
@@ -44,4 +44,4 @@ def debug_pair(x: object) -> str:
     debug_pair(5) -> "x=5"
     debug_pair("hi") -> "x='hi'"
     """
-    raise NotImplementedError
+    return f"{x=}"

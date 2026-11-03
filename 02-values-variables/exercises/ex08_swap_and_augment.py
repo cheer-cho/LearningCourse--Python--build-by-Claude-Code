@@ -16,7 +16,7 @@ def swap(a: object, b: object) -> tuple[object, object]:
     swap(1, 2) -> (2, 1)
     swap("x", "y") -> ("y", "x")
     """
-    raise NotImplementedError
+    return (b, a)
 
 
 def apply_raise_and_bonus(salary: float, raise_amount: float, bonus: float) -> float:
@@ -28,7 +28,9 @@ def apply_raise_and_bonus(salary: float, raise_amount: float, bonus: float) -> f
     apply_raise_and_bonus(50000.0, 2000.0, 500.0) -> 52500.0
     apply_raise_and_bonus(100.0, 0.0, 10.0) -> 110.0
     """
-    raise NotImplementedError
+    salary += raise_amount
+    salary += bonus
+    return salary
 
 
 def evaluate() -> int:
@@ -41,4 +43,4 @@ def evaluate() -> int:
     evaluate() -> 20
     """
     # TODO: add parentheses below — this currently returns 14, not 20.
-    return 2 + 3 * 4
+    return (2 + 3) * 4

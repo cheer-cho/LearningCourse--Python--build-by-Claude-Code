@@ -20,7 +20,7 @@ def parse_money(text: str) -> float:
     parse_money(" $3.50 ") -> 3.5
     parse_money("9.99") -> 9.99
     """
-    raise NotImplementedError
+    return float(text.strip().removeprefix("$"))
 
 
 def format_receipt(store: str, items: list[tuple[str, str, int]]) -> str:
@@ -47,4 +47,40 @@ def format_receipt(store: str, items: list[tuple[str, str, int]]) -> str:
         ("Widget", "$3.50", 2), ("Gadget", "$12.00", 1), ("Gizmo", "$0.99", 5),
     ]) -> (see test_checkpoint_02.py for the exact expected lines)
     """
-    raise NotImplementedError
+    
+    #  1. get each item's values
+    (item1_name, item1_unit_price_text, item1_qty) = items[0]
+    (item2_name, item2_unit_price_text, item2_qty) = items[1]
+    (item3_name, item3_unit_price_text, item3_qty) = items[2]
+
+    # 2. parse price string to float
+    item1_price = parse_money(item1_unit_price_text)
+    item2_price = parse_money(item2_unit_price_text)
+    item3_price = parse_money(item3_unit_price_text)
+
+    # 3. get the line total value 
+    item1_total_amount = item1_price * item1_qty
+    item2_total_amount = item2_price * item2_qty
+    item3_total_amount = item3_price * item3_qty
+
+    subtotal = item1_total_amount + item2_total_amount + item3_total_amount
+    tax = 0.07 * subtotal
+    total = subtotal + tax
+
+    line1 = f"{item1_name:<10} x{item1_qty:<3} @ ${item1_price:>6.2f} = ${item1_total_amount:>7.2f}"
+    line2 = f"{item2_name:<10} x{item2_qty:<3} @ ${item2_price:>6.2f} = ${item2_total_amount:>7.2f}"
+    line3 = f"{item3_name:<10} x{item3_qty:<3} @ ${item3_price:>6.2f} = ${item3_total_amount:>7.2f}"
+
+    return "\n".join(
+        [
+            f"=== {store} ===",
+            line1,
+            line2,
+            line3,
+            "-" * 34,
+            f"{'Subtotal':<24}${subtotal:>8.2f}",
+            f"{'Tax (7%)':<24}${tax:>8.2f}",
+            f"{'Total':<24}${total:>8.2f}",
+        ]
+    )
+

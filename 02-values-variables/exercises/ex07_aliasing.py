@@ -25,7 +25,7 @@ def shared_append() -> list[int]:
     b = a
     b.append(3)
     # TODO: replace this wrong guess with your prediction for `a`.
-    return [1, 2]
+    return [1, 2, 3]
 
 
 def two_names_one_list() -> list[int]:
@@ -41,7 +41,7 @@ def two_names_one_list() -> list[int]:
     a.append(4)
     assert b is a  # same object — mutating through `a` shows up in `b` too
     # TODO: replace this wrong guess with your prediction for `b`.
-    return [1, 2, 3]
+    return [1, 2, 3, 4]
 
 
 def rebind_vs_alias() -> tuple[list[int], list[int]]:
@@ -56,4 +56,4 @@ def rebind_vs_alias() -> tuple[list[int], list[int]]:
     b = a
     b = b + [3]
     # TODO: replace this wrong guess with your prediction for `(a, b)`.
-    return ([1, 2], [1, 2])
+    return ([1, 2], [1, 2, 3])

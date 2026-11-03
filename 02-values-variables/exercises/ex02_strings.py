@@ -15,7 +15,7 @@ def shout(s: str) -> str:
     shout("watch out") -> "WATCH OUT!"
     shout("hello") -> "HELLO!"
     """
-    raise NotImplementedError
+    return f"{s.upper()}!"
 
 
 def initials(full_name: str) -> str:
@@ -28,7 +28,20 @@ def initials(full_name: str) -> str:
     initials("ada lovelace") -> "A.L."
     initials("grace hopper") -> "G.H."
     """
-    raise NotImplementedError
+    # 1. split the full_name
+    # 2. using first char of them
+    names = full_name.upper().split()
+
+    """
+    loop version
+
+    first_char_of_names = []
+    for name in names:
+        first_char_of_names.append(name[0])
+    """
+
+    first_char_of_names = [name[0] for name in names]
+    return ".".join(first_char_of_names) + "."
 
 
 def clean_username(raw: str) -> str:
@@ -40,4 +53,4 @@ def clean_username(raw: str) -> str:
     clean_username("  John Doe ") -> "john_doe"
     clean_username("ADA") -> "ada"
     """
-    raise NotImplementedError
+    return raw.strip().lower().replace(" ", "_")

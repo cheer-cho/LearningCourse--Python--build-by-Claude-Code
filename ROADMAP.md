@@ -31,9 +31,9 @@ the finish line.*
 - [x] ✦ Checkpoint 1 passed
 
 ### 02 — Values & Variables
-- [ ] Lesson read
-- [ ] Exercises ex01–ex08
-- [ ] ✦ Checkpoint 2 passed
+- [x] Lesson read
+- [x] Exercises ex01–ex08
+- [x] ✦ Checkpoint 2 passed
 
 ### 03 — Control Flow
 - [ ] Lesson read
