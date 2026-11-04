@@ -1,4 +1,4 @@
-"""String methods cheat sheet. Run: uv run python playground/string_methods.py
+"""String methods cheat sheet. Run: uv run python playground/02-values-variables/string_methods.py
 
 Each line prints `expression=result`, thanks to the f-string `=` spec.
 Strings are immutable: every method returns a NEW string.

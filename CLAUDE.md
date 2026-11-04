@@ -14,9 +14,11 @@ happens to work.
   or in a scratch file under `playground/`) instead of writing a wall of
   text. Any flow, hierarchy, or decision deserves a diagram.
 - Answer every Python question with a small **runnable example**. When
-  useful, create a scratch file in `playground/` and run it with
-  `uv run python playground/<file>.py`, or `uv run pytest <file>` to
-  demonstrate a test.
+  useful, create a scratch file in the current lesson's folder,
+  `playground/<NN-module>/` (named like the module dir, e.g.
+  `playground/02-values-variables/`), and run it with
+  `uv run python playground/<NN-module>/<file>.py`, or
+  `uv run pytest <file>` to demonstrate a test.
 - Use tables for comparisons (list vs tuple, is vs ==, threading vs
   multiprocessing vs asyncio, etc.).
 

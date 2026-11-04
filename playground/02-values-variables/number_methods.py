@@ -1,4 +1,4 @@
-"""Numbers & conversions cheat sheet. Run: uv run python playground/number_methods.py
+"""Numbers & conversions cheat sheet. Run: uv run python playground/02-values-variables/number_methods.py
 
 Each line prints `expression=result`, thanks to the f-string `=` spec.
 """
