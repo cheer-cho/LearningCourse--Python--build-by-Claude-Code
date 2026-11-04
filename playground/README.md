@@ -12,3 +12,4 @@ lesson has a demo. Run any file with
 |---|---|
 | [01-setup-tooling/](01-setup-tooling/) | `__name__` and imports (`whoami.py`, `importer.py`) |
 | [02-values-variables/](02-values-variables/) | labels vs boxes, numbers, strings, `split`/`strip`/`join`, comprehensions |
+| [03-control-flow/](03-control-flow/) | `match`/`case` vs `switch` |
