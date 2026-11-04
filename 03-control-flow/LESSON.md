@@ -22,9 +22,9 @@ flowchart TD
     E -- no --> R5["'F'"]
 ```
 
-*What to notice: only ONE branch ever runs. Python checks conditions top
+_What to notice: only ONE branch ever runs. Python checks conditions top
 to bottom and stops at the first `True` — order matters, which is why
-`>= 90` must come before `>= 80`.*
+`>= 90` must come before `>= 80`._
 
 ```python
 score = 82
@@ -45,17 +45,17 @@ Every value in Python is truthy or falsy, even outside a boolean
 context. `if value:` asks "is this value truthy?" — you don't need
 `if value == True`.
 
-| Falsy | Truthy |
-| --- | --- |
-| `0`, `0.0` | any other number |
-| `""` (empty string) | any non-empty string |
-| `None` | any object that isn't in the falsy list |
-| `False` | `True` |
-| empty container (`[]`, `{}`, `()`) | a non-empty container |
+| Falsy                              | Truthy                                  |
+| ---------------------------------- | --------------------------------------- |
+| `0`, `0.0`                         | any other number                        |
+| `""` (empty string)                | any non-empty string                    |
+| `None`                             | any object that isn't in the falsy list |
+| `False`                            | `True`                                  |
+| empty container (`[]`, `{}`, `()`) | a non-empty container                   |
 
-*What to notice: falsy is a short, memorizable list — "zero, empty, or
+_What to notice: falsy is a short, memorizable list — "zero, empty, or
 none." Everything else, including negative numbers and the string
-`"0"`, is truthy.*
+`"0"`, is truthy._
 
 ```python
 name = ""
@@ -112,8 +112,8 @@ flowchart TD
     Cond -- no, loop exhausted --> Else["else: (runs)"] --> After
 ```
 
-*What to notice: `break` skips the `else` entirely — `else` only fires
-when the loop ran out of items on its own.*
+_What to notice: `break` skips the `else` entirely — `else` only fires
+when the loop ran out of items on its own._
 
 ```python
 for n in range(2, 10):
@@ -146,6 +146,23 @@ match point:
 Patterns can capture values into names (`(0, y)` binds `y`), combine
 alternatives with `|`, and add a `case ... if condition:` guard for
 checks a pattern alone can't express.
+
+```mermaid
+flowchart TD
+    A[Need to branch on a value] --> B{Checking shape or<br/>pulling out parts?}
+    B -- yes --> M[match / case]
+    B -- no --> C{Many literal values?}
+    C -- yes --> D[dict lookup or match]
+    C -- no --> E[if / elif]
+```
+
+```mermaid
+flowchart TD
+    V["c = 'blue'"] --> R{"case RED:<br/>(capture: matches anything)"}
+    R -- always yes --> X["return 'red'"]
+    R -. never .-> B["case 'blue':"]
+    B -. never .-> W["case _:"]
+```
 
 ## Gotchas
 
