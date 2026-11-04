@@ -14,7 +14,7 @@ def first_truthy(a, b, c):
     None, 0, False -> None
     "x", "y", "z" -> "x"
     """
-    raise NotImplementedError
+    return a or b or c or None
 
 
 def describe(value) -> str:
@@ -30,4 +30,9 @@ def describe(value) -> str:
     0 -> "present"
     "hi" -> "present"
     """
-    raise NotImplementedError
+    if value is None:
+        return "missing"
+    elif value == "":
+        return "empty"
+    else:
+        return "present"
