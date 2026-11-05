@@ -66,3 +66,14 @@ quizzes and reviews. Format:
 **Mistake:** Matched loose patterns (`("go", direction)`, `("repeat", times)`) and then decided the outcome with a ternary inside the case body. Tests pass, but the guard clause the exercise teaches went unused. Same root as ex05: the result is right, but the construct the exercise teaches isn't used.
 **Correction:** In `match`, the pattern (plus an optional `if` guard) is where the decision lives. Write one `case` per outcome, e.g. `case ("repeat", n) if n > 0:` then `case ("repeat", _):`. Each case reads as one rule, and the body just returns. Use a tuple or set for fixed membership checks, not a list.
 **Status:** improving: rewrote `go` and `repeat` with guard cases after the review (2026-11-05)
+
+## 2026-11-05 — 03 / checkpoint_03
+**Mistake:** Used `is` to compare values (`guess is secret`, `result is "correct!"`). Tests passed only by accident: CPython caches small ints and interns some string literals, so identity happened to match. Python even emits `SyntaxWarning: "is" with 'str' literal`.
+**Correction:** `==` compares values; `is` compares object identity. Use `is` only for singletons: `None`, `True`/`False`, sentinels. Demo: `playground/03-control-flow/is_vs_equals.py`.
+**Status:** improving — fixed both after one hint (missed the int one at first)
+
+## 2026-11-05 — 03 / checkpoint_03
+**Mistake:** Wrote `play_round` without the `for/else` its docstring asked for, so an empty guess list returned `""`. Also used `enumerate(...)` plus `index + 1` instead of `enumerate(..., start=1)`.
+**Correction:** Read the docstring as a spec: when it names a construct and an edge case, there should be a branch for that case. `enumerate(xs, start=1)` gives 1-based counters directly.
+Follow-up: the fix used `if not len(results):` — Pythonic is `if not results:` (empty list is already falsy; see ex02_truthiness).
+**Status:** improving — all three applied on review (for/else, `not results`, enumerate start). Confirm they stick in module 04 before marking overcome

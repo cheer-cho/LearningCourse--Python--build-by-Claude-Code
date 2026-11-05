@@ -51,3 +51,7 @@ def test_play_round_out_of_range_guess_included_in_transcript():
     lines = transcript.split("\n")
     assert lines[0] == "attempt 1: guess 500 -> out of range"
     assert lines[1] == "attempt 2: guess 42 -> correct!"
+
+
+def test_play_round_no_guesses_is_never_empty():
+    assert play_round(42, []) == "no guesses made"

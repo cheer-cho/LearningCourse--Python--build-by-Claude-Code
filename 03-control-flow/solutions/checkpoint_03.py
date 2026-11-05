@@ -42,6 +42,7 @@ def play_round(secret: int, guesses) -> str:
 
     secret, guesses -> result
     42, [10, 42] -> "attempt 1: guess 10 -> too low\\nattempt 2: guess 42 -> correct!"
+    42, [] -> "no guesses made"
     """
     max_attempts = len(guesses)
     transcript = ""
