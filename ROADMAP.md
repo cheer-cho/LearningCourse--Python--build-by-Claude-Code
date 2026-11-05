@@ -36,9 +36,9 @@ the finish line.*
 - [x] ✦ Checkpoint 2 passed
 
 ### 03 — Control Flow
-- [ ] Lesson read
-- [ ] Exercises ex01–ex07
-- [ ] ✦ Checkpoint 3 passed
+- [x] Lesson read
+- [x] Exercises ex01–ex07
+- [x] ✦ Checkpoint 3 passed
 
 ### 04 — Collections
 - [ ] Lesson read

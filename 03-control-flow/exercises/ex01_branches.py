@@ -13,7 +13,16 @@ def grade(score: float) -> str:
     82 -> "B"
     59 -> "F"
     """
-    raise NotImplementedError
+    if score >= 90:
+        return "A"
+    elif score >= 80:
+        return "B"
+    elif score >= 70:
+        return "C"
+    elif score >= 60:
+        return "D"
+    else:
+        return "F"
 
 
 def shipping_cost(subtotal: float, express: bool) -> float:
@@ -28,4 +37,7 @@ def shipping_cost(subtotal: float, express: bool) -> float:
     20, False -> 5.99
     20, True -> 14.99
     """
-    raise NotImplementedError
+    if subtotal >= 50:
+        return 4.99 if express else 0.0
+
+    return 14.99 if express else 5.99

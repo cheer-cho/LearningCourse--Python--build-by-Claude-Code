@@ -15,7 +15,11 @@ def sum_multiples(limit: int, k: int) -> int:
     20, 5 -> 30   (5 + 10 + 15)
     5, 10 -> 0    (no multiples of 10 below 5)
     """
-    raise NotImplementedError
+    total = 0
+    for i in range(k, limit, k):
+        total += i
+
+    return total
 
 
 def factorial(n: int) -> int | None:
@@ -28,7 +32,15 @@ def factorial(n: int) -> int | None:
     5 -> 120
     -1 -> None
     """
-    raise NotImplementedError
+    if n < 0:
+        return None
+
+    fac = 1
+
+    for i in range(2, n + 1):
+        fac *= i
+
+    return fac
 
 
 def stripes(n: int) -> str:
@@ -42,4 +54,9 @@ def stripes(n: int) -> str:
     1 -> "="
     0 -> ""
     """
-    raise NotImplementedError
+    result = ""
+
+    for i in range(n):
+        result += "=" if i % 2 == 0 else "-"
+
+    return result

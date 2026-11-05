@@ -51,3 +51,16 @@ def test_find_char_absent():
 
 def test_find_char_empty_string():
     assert find_char("", "a") == -1
+
+
+def test_is_prime_false_for_zero():
+    assert is_prime(0) is False
+
+
+def test_is_prime_false_for_negative():
+    assert is_prime(-7) is False
+
+
+def test_first_divisor_guards_zero_and_negative():
+    assert first_divisor(0) is None
+    assert first_divisor(-5) is None
