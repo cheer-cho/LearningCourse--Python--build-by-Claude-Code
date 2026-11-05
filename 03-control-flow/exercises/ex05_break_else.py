@@ -16,7 +16,12 @@ def first_divisor(n: int) -> int | None:
     7 -> 7   (7 is prime — its smallest divisor > 1 is itself)
     1 -> None
     """
-    raise NotImplementedError
+    for i in range(2, n + 1):
+        if n % i == 0:
+            return i
+
+    else:
+        return None
 
 
 def is_prime(n: int) -> bool:
@@ -31,7 +36,14 @@ def is_prime(n: int) -> bool:
     8 -> False
     1 -> False
     """
-    raise NotImplementedError
+    if n <= 1:
+        return False
+
+    for i in range(2, n):
+        if n % i == 0:
+            return False
+
+    return True
 
 
 def find_char(s: str, c: str) -> int:
@@ -44,4 +56,9 @@ def find_char(s: str, c: str) -> int:
     "hello", "l" -> 2
     "hello", "z" -> -1
     """
-    raise NotImplementedError
+    for index, char in enumerate(s):
+        if char == c:
+            return index
+
+    else:
+        return -1
