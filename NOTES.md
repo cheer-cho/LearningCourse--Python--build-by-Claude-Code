@@ -61,3 +61,8 @@ quizzes and reviews. Format:
 **Mistake:** (1) `is_prime` guarded only `n == 1`, so `is_prime(0)` and `is_prime(-7)` returned `True` (empty `range` → `else` runs). Same root as ex03's `n == 0` guard. (2) Used `return` inside every `for` loop and still added an `else:`, which then never matters, so the `break`/`else` pattern the exercise teaches went unused.
 **Correction:** A guard covers the whole invalid range (`n < 2`), not one example of it. `return` exits the function, so an `else` after the loop is redundant: either drop the `else` and put the fallback after the loop, or use `break` + `else` when the loop sets a variable that later code uses.
 **Status:** improving: guard fixed to `n <= 1` after a nudge (2026-11-05); removed the redundant `else` from `is_prime` once shown return-vs-break side by side (playground `return_vs_break_else.py`)
+
+## 2026-11-05 — 03 / ex06_match
+**Mistake:** Matched loose patterns (`("go", direction)`, `("repeat", times)`) and then decided the outcome with a ternary inside the case body. Tests pass, but the guard clause the exercise teaches went unused. Same root as ex05: the result is right, but the construct the exercise teaches isn't used.
+**Correction:** In `match`, the pattern (plus an optional `if` guard) is where the decision lives. Write one `case` per outcome, e.g. `case ("repeat", n) if n > 0:` then `case ("repeat", _):`. Each case reads as one rule, and the body just returns. Use a tuple or set for fixed membership checks, not a list.
+**Status:** improving: rewrote `go` and `repeat` with guard cases after the review (2026-11-05)
