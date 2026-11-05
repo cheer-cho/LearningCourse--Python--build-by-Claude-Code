@@ -15,7 +15,14 @@ def countdown(n: int) -> str:
     1 -> "1-liftoff"
     0 -> "liftoff"
     """
-    raise NotImplementedError
+    labels = []
+    while n > 0:
+        labels.append(str(n))
+        n -= 1
+
+    labels.append("liftoff")
+
+    return "-".join(labels)
 
 
 def collatz_steps(n: int) -> int | None:
@@ -30,4 +37,16 @@ def collatz_steps(n: int) -> int | None:
     6 -> 8
     0 -> None
     """
-    raise NotImplementedError
+    if n < 1:
+        return None
+
+    steps = 0
+    
+    while n != 1:
+        if n % 2 == 0:
+            n //= 2
+        else:
+            n = 3 * n + 1
+        steps += 1
+
+    return steps
