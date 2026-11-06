@@ -3,6 +3,8 @@
 # unpacking.
 # Run: uv run pytest 04-collections -k ex02
 
+import math
+
 
 def min_max(nums: list[int]) -> tuple[int, int]:
     """Return a (lowest, highest) tuple for `nums`.
@@ -12,7 +14,7 @@ def min_max(nums: list[int]) -> tuple[int, int]:
     min_max([3, 1, 4, 1, 5]) -> (1, 5)
     min_max([7]) -> (7, 7)
     """
-    raise NotImplementedError
+    return min(nums), max(nums)
 
 
 def head_tail(items: list[int]) -> tuple[int, list[int]]:
@@ -22,7 +24,8 @@ def head_tail(items: list[int]) -> tuple[int, list[int]]:
     head_tail([1, 2, 3]) -> (1, [2, 3])
     head_tail([9]) -> (9, [])
     """
-    raise NotImplementedError
+    head, *rest = items
+    return head, rest
 
 
 def distance(p: tuple[float, float], q: tuple[float, float]) -> float:
@@ -31,4 +34,6 @@ def distance(p: tuple[float, float], q: tuple[float, float]) -> float:
 
     distance((0, 0), (3, 4)) -> 5.0
     """
-    raise NotImplementedError
+    x1, y1 = p
+    x2, y2 = q
+    return math.hypot(x2 - x1, y2 - y1)
