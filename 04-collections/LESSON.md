@@ -20,9 +20,9 @@ flowchart TD
     D -- yes --> Set(["set"])
 ```
 
-*What to notice: the four containers aren't interchangeable — each answer
+_What to notice: the four containers aren't interchangeable — each answer
 in the flowchart rules three of them out. If you're reaching for a list
-just to check "is x in here fast?", you probably want a set.*
+just to check "is x in here fast?", you probably want a set._
 
 ## Lists
 
@@ -50,7 +50,7 @@ scores.sort()                 # sorts scores IN PLACE, returns None
 ## Slicing
 
 `s[start:stop:step]` reads "from `start` up to but not including
-`stop`, taking every `step`-th item." Boundaries sit *between* elements.
+`stop`, taking every `step`-th item." Boundaries sit _between_ elements.
 
 ```mermaid
 graph LR
@@ -60,9 +60,9 @@ graph LR
     end
 ```
 
-*What to notice: every element has two valid indices — positive counts
+_What to notice: every element has two valid indices — positive counts
 from the left, negative from the right. `s[1:4]` grabs `Y`, `T`, `H`
-(stops before index 4); `s[-6:]` is the whole string.*
+(stops before index 4); `s[-6:]` is the whole string._
 
 ```python
 s = "PYTHON"
@@ -170,19 +170,73 @@ graph TD
     end
 ```
 
-*What to notice: `list(x)` (or `x[:]`, `x.copy()`) only copies the
+_What to notice: `list(x)` (or `x[:]`, `x.copy()`) only copies the
 **outer** container — nested lists/dicts inside are still shared. Only
-`copy.deepcopy` gives you fully independent nested data.*
+`copy.deepcopy` gives you fully independent nested data._
+
+```mermaid
+flowchart LR
+    a["a"] --> LA["list object #1<br/>[slot0, slot1, slot2]"]
+    c["c"] --> LC["list object #2<br/>[slot0, slot1, slot2]"]
+    LA -->|slot0| one["1"]
+    LA -->|slot1| hi["'hi'"]
+    LA -->|slot2| inner["[10, 20]"]
+    LC -->|slot0| one
+    LC -->|slot1| hi
+    LC -->|slot2| inner
+```
+
+_What to notice: `c = list(a)` makes two separate list objects. Their
+slots point at the **same** item objects. `c` points to `a`'s items,
+not to `a` itself._
+
+Zoom in on what `c = list(a)` does:
+
+1. **New memory.** Python makes a new list object, a fresh row of slots.
+2. **Shared items.** Each slot points to the same item that `a` holds.
+   The items are not copied.
+3. **No link to `a`.** `c` knows nothing about `a`. Rebinding `a` later
+   (`a = [...]`) does not change `c`.
+
+So which changes show up in both lists?
+
+| What you do to `c` | What changes                                        | Does `a` see it? |
+| ------------------ | --------------------------------------------------- | ---------------- |
+| `c.append(x)`      | `c`'s own slots                                     | No               |
+| `c[0] = 99`        | `c`'s slot now points at a new object               | No               |
+| `c[2].append(30)`  | the shared inner list itself                        | **Yes**          |
+| `c[1] += "!"`      | `str` is immutable, so `c`'s slot gets a new string | No               |
+
+The rule: **rebinding a slot** only affects `c`. **Mutating a shared
+item** affects both.
+
+```python
+a = [1, "hi", [10, 20]]
+c = list(a)
+
+c[0] = 99           # rebind c's slot → a unchanged
+c[2].append(30)     # mutate shared inner list → both see it
+
+print(a)  # [1, 'hi', [10, 20, 30]]
+print(c)  # [99, 'hi', [10, 20, 30]]
+```
+
+A shallow copy is safe when the items are immutable (ints, strings,
+tuples). It only surprises you when the items are mutable, like nested
+lists or dicts.
+
+> **Coming from TypeScript:** `list(a)` works like `[...a]`. The spread
+> copies one level, and nested objects are still shared.
 
 ## Gotchas
 
-| Gotcha | What happens | Fix |
-| --- | --- | --- |
-| Mutating a list while looping over it | items get skipped or revisited | loop over `list(items)` (a copy), or build a new list |
-| `d[key]` on a missing key | raises `KeyError` | use `d.get(key, default)` or check `key in d` first |
-| `(5)` isn't a tuple | it's just `5` in parens | a 1-tuple needs a comma: `(5,)` |
-| `{}` is an empty **dict**, not a set | `type({})` is `dict` | empty set is `set()` |
-| `scores = scores.sort()` | `scores` becomes `None` | `.sort()` returns `None`; use `sorted(scores)` if you need the value back |
+| Gotcha                                | What happens                   | Fix                                                                       |
+| ------------------------------------- | ------------------------------ | ------------------------------------------------------------------------- |
+| Mutating a list while looping over it | items get skipped or revisited | loop over `list(items)` (a copy), or build a new list                     |
+| `d[key]` on a missing key             | raises `KeyError`              | use `d.get(key, default)` or check `key in d` first                       |
+| `(5)` isn't a tuple                   | it's just `5` in parens        | a 1-tuple needs a comma: `(5,)`                                           |
+| `{}` is an empty **dict**, not a set  | `type({})` is `dict`           | empty set is `set()`                                                      |
+| `scores = scores.sort()`              | `scores` becomes `None`        | `.sort()` returns `None`; use `sorted(scores)` if you need the value back |
 
 ## Try it now
 

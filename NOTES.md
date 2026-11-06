@@ -77,3 +77,13 @@ quizzes and reviews. Format:
 **Correction:** Read the docstring as a spec: when it names a construct and an edge case, there should be a branch for that case. `enumerate(xs, start=1)` gives 1-based counters directly.
 Follow-up: the fix used `if not len(results):` — Pythonic is `if not results:` (empty list is already falsy; see ex02_truthiness).
 **Status:** improving — all three applied on review (for/else, `not results`, enumerate start). Confirm they stick in module 04 before marking overcome
+
+## 2026-11-06 — 04 / dict `.get()` counting pattern
+**Mistake:** Twice treated the default as the value that gets *stored*, skipping the `+ 1` on a key's first occurrence. (1) In TS: `counts[word] == undefined ? 0 : counts[word] + 1`, so new words were stored as 0. (2) Predicted `counts.get(word, 10) + 1` stores 10 on first sight, when it stores 11.
+**Correction:** `.get(key, default)` only answers "the current value, or the default if the key is missing." The `+ 1` then applies to whatever comes back, in both cases. Read it as two steps: look up, then update. In TS that's `(counts[word] ?? 0) + 1`, with the `+ 1` outside the fallback.
+**Status:** open: check again when Counter/defaultdict come up in module 04
+
+## 2026-11-06 — 04 / comprehensions
+**Mistake:** Predicted that `{name: len(name) for name in names}` and `{name[0] for name in names}` both return lists. Read every comprehension as a list, whatever brackets it uses.
+**Correction:** The brackets decide the result type: `[...]` gives a list, `{k: v ...}` (with a colon) gives a dict, `{x ...}` (no colon) gives a set, which removes duplicates and has no order. Demo: `playground/04-collections/comprehension_shapes.py`.
+**Status:** improving: got dict vs set right on the second try (2026-11-06); still quiz on `{}` being an empty dict, not a set
