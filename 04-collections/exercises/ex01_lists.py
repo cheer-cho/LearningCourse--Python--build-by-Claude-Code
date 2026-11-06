@@ -13,7 +13,7 @@ def top_three(scores: list[int]) -> list[int]:
     top_three([50, 90, 10, 100, 70]) -> [100, 90, 70]
     top_three([5, 1]) -> [5, 1]
     """
-    raise NotImplementedError
+    return sorted(scores, reverse=True)[:3]
 
 
 def insert_sorted(items: list[int], x: int) -> list[int]:
@@ -24,7 +24,15 @@ def insert_sorted(items: list[int], x: int) -> list[int]:
     insert_sorted([1, 3, 5], 0) -> [0, 1, 3, 5]
     insert_sorted([], 7) -> [7]
     """
-    raise NotImplementedError
+    index = 0
+    for item in items:
+        if item < x:
+            index += 1
+        else:
+            break
+
+    items.insert(index, x)
+    return items
 
 
 def without_negatives(nums: list[int]) -> list[int]:
@@ -35,4 +43,9 @@ def without_negatives(nums: list[int]) -> list[int]:
     without_negatives([3, -1, 0, -5, 2]) -> [3, 0, 2]
     without_negatives([-1, -2]) -> []
     """
-    raise NotImplementedError
+    non_negative_nums = []
+    for num in nums:
+        if num >= 0:
+            non_negative_nums.append(num)
+
+    return non_negative_nums

@@ -87,3 +87,8 @@ Follow-up: the fix used `if not len(results):` — Pythonic is `if not results:`
 **Mistake:** Predicted that `{name: len(name) for name in names}` and `{name[0] for name in names}` both return lists. Read every comprehension as a list, whatever brackets it uses.
 **Correction:** The brackets decide the result type: `[...]` gives a list, `{k: v ...}` (with a colon) gives a dict, `{x ...}` (no colon) gives a set, which removes duplicates and has no order. Demo: `playground/04-collections/comprehension_shapes.py`.
 **Status:** improving: got dict vs set right on the second try (2026-11-06); still quiz on `{}` being an empty dict, not a set
+
+## 2026-11-06 — 04 / ex01_lists
+**Mistake:** Tests passed, but the code skipped what the docstring asked for. Same root as ex05 and ex06 in module 03. (1) `insert_sorted` used `append` + `sort()`, ignoring "already sorted" and the `insert` concept. (2) `without_negatives` used a comprehension when the docstring said "plain `for` loop". (3) `top_three` used `sorted(...)[::-1]` instead of `sorted(..., reverse=True)`.
+**Correction:** The docstring is part of the spec. When it names a construct or a precondition (e.g. "already sorted"), the solution should use it. Tests can check *what* comes back, not *how*. For a list that is already sorted, find the index and `insert` (in real code, `bisect.insort`). To sort descending, use `reverse=True`, not a reversed copy.
+**Status:** improving: all three rewritten to spec after a nudge plus a flowchart for the index scan (2026-11-06). Minor follow-ups: a redundant `elif item >= x` (the opposite of the `if`, so use `else` or break first), and the name `positive_nums` for a filter that keeps 0.
