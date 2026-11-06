@@ -10,7 +10,9 @@ def add_contact(phonebook: dict[str, str], name: str, number: str) -> dict[str, 
 
     add_contact({}, "Ada", "555-0100") -> {"Ada": "555-0100"}
     """
-    raise NotImplementedError
+    phonebook[name] = number
+
+    return phonebook
 
 
 def lookup(phonebook: dict[str, str], name: str) -> str:
@@ -20,7 +22,7 @@ def lookup(phonebook: dict[str, str], name: str) -> str:
     lookup({"Ada": "555-0100"}, "Ada") -> "555-0100"
     lookup({"Ada": "555-0100"}, "Grace") -> "unknown"
     """
-    raise NotImplementedError
+    return phonebook.get(name, "unknown")
 
 
 def count_words(text: str) -> dict[str, int]:
@@ -31,4 +33,8 @@ def count_words(text: str) -> dict[str, int]:
     count_words("a b a c b a") -> {"a": 3, "b": 2, "c": 1}
     count_words("") -> {}
     """
-    raise NotImplementedError
+    counts = {}
+    for word in text.split():
+        counts[word] = counts.get(word, 0) + 1
+
+    return counts

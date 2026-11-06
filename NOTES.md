@@ -81,7 +81,7 @@ Follow-up: the fix used `if not len(results):` — Pythonic is `if not results:`
 ## 2026-11-06 — 04 / dict `.get()` counting pattern
 **Mistake:** Twice treated the default as the value that gets *stored*, skipping the `+ 1` on a key's first occurrence. (1) In TS: `counts[word] == undefined ? 0 : counts[word] + 1`, so new words were stored as 0. (2) Predicted `counts.get(word, 10) + 1` stores 10 on first sight, when it stores 11.
 **Correction:** `.get(key, default)` only answers "the current value, or the default if the key is missing." The `+ 1` then applies to whatever comes back, in both cases. Read it as two steps: look up, then update. In TS that's `(counts[word] ?? 0) + 1`, with the `+ 1` outside the fallback.
-**Status:** open: check again when Counter/defaultdict come up in module 04
+**Status:** improving: wrote `words.get(word, 0) + 1` correctly in ex03_dicts (2026-11-06). Check again when Counter/defaultdict come up in module 04
 
 ## 2026-11-06 — 04 / comprehensions
 **Mistake:** Predicted that `{name: len(name) for name in names}` and `{name[0] for name in names}` both return lists. Read every comprehension as a list, whatever brackets it uses.
@@ -96,4 +96,4 @@ Follow-up: the fix used `if not len(results):` — Pythonic is `if not results:`
 ## 2026-11-06 — 04 / ex02_tuples_unpacking
 **Mistake:** Tests passed, but again the docstring's named construct went unused: `distance` indexed `p[0]`, `q[1]` when the docstring said "unpacking each tuple into its x, y parts". Also `min_max` sorted the whole list (O(n log n)) to read two ends, `return (head, rest)` kept the habit of parenthesizing tuples, and debug `print(...)` calls were left at module level, so they run on every import (including pytest's).
 **Correction:** Same root as ex01: the docstring is spec. Unpack into names (`x1, y1 = p`) so the math reads like the formula. `min()` and `max()` are each one O(n) pass. The comma makes the tuple, so `return head, rest`. Scratch prints go under `if __name__ == "__main__":` or in `playground/`.
-**Status:** improving: everything fixed, including the leftover parentheses (2026-11-06). Watch for unparenthesized tuples sticking in ex03+
+**Status:** improving: everything fixed, including the leftover parentheses (2026-11-06). Watch for unparenthesized tuples sticking in ex03+. ex03_dicts (2026-11-06): debug `print(...)` calls left at module level again; the docstring spec was followed fully (`.get` with a default, `.split()`, counting idiom)
