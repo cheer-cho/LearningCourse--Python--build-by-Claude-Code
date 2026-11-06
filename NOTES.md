@@ -65,7 +65,7 @@ quizzes and reviews. Format:
 ## 2026-11-05 — 03 / ex06_match
 **Mistake:** Matched loose patterns (`("go", direction)`, `("repeat", times)`) and then decided the outcome with a ternary inside the case body. Tests pass, but the guard clause the exercise teaches went unused. Same root as ex05: the result is right, but the construct the exercise teaches isn't used.
 **Correction:** In `match`, the pattern (plus an optional `if` guard) is where the decision lives. Write one `case` per outcome, e.g. `case ("repeat", n) if n > 0:` then `case ("repeat", _):`. Each case reads as one rule, and the body just returns. Use a tuple or set for fixed membership checks, not a list.
-**Status:** improving: rewrote `go` and `repeat` with guard cases after the review (2026-11-05)
+**Status:** improving: rewrote `go` and `repeat` with guard cases after the review (2026-11-05). Quiz 2026-11-06: needed the question reworded plus an analogous example, then wrote `case ("repeat", n) if n > 0:` correctly; re-quiz once more cold
 
 ## 2026-11-05 — 03 / checkpoint_03
 **Mistake:** Used `is` to compare values (`guess is secret`, `result is "correct!"`). Tests passed only by accident: CPython caches small ints and interns some string literals, so identity happened to match. Python even emits `SyntaxWarning: "is" with 'str' literal`.
