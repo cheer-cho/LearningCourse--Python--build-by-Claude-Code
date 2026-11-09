@@ -14,7 +14,7 @@ def emails_of(users: list[dict]) -> list[str]:
     emails_of([{"email": "a@x.com"}, {"email": "b@x.com"}])
         -> ["a@x.com", "b@x.com"]
     """
-    raise NotImplementedError
+    return [user["email"] for user in users]
 
 
 def find_user(users: list[dict], name: str) -> dict | None:
@@ -25,7 +25,11 @@ def find_user(users: list[dict], name: str) -> dict | None:
     find_user([{"name": "Ada"}, {"name": "Grace"}], "Grace") -> {"name": "Grace"}
     find_user([{"name": "Ada"}], "Nobody") -> None
     """
-    raise NotImplementedError
+    for user in users:
+        if user.get("name") == name:
+            return user
+
+    return None
 
 
 def active_users(users: list[dict]) -> list[dict]:
@@ -34,7 +38,7 @@ def active_users(users: list[dict]) -> list[dict]:
     active_users([{"name": "Ada", "active": True}, {"name": "Bo", "active": False}])
         -> [{"name": "Ada", "active": True}]
     """
-    raise NotImplementedError
+    return [user for user in users if user["active"]]
 
 
 def average_age(users: list[dict]) -> float:
@@ -43,4 +47,5 @@ def average_age(users: list[dict]) -> float:
 
     average_age([{"age": 30}, {"age": 40}]) -> 35.0
     """
-    raise NotImplementedError
+    
+    return sum(user["age"] for user in users) / len(users)
