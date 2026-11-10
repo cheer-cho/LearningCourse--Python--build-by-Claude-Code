@@ -9,7 +9,7 @@ def every_other(s: str) -> str:
     every_other("PYTHON") -> "PTO"
     every_other("") -> ""
     """
-    raise NotImplementedError
+    return s[::2]
 
 
 def reversed_copy(items: list[int]) -> list[int]:
@@ -18,7 +18,7 @@ def reversed_copy(items: list[int]) -> list[int]:
 
     reversed_copy([1, 2, 3]) -> [3, 2, 1]
     """
-    raise NotImplementedError
+    return items[::-1]
 
 
 def middle(items: list[int]) -> list[int]:
@@ -27,7 +27,7 @@ def middle(items: list[int]) -> list[int]:
     middle([1, 2, 3, 4, 5]) -> [2, 3, 4]
     middle([1, 2]) -> []
     """
-    raise NotImplementedError
+    return items[1:-1]
 
 
 def rotate(items: list[int], n: int) -> list[int]:
@@ -39,4 +39,8 @@ def rotate(items: list[int], n: int) -> list[int]:
     rotate([1, 2, 3], 0) -> [1, 2, 3]
     rotate([1, 2, 3], 4) -> [2, 3, 1]
     """
-    raise NotImplementedError
+    if not items:
+        return []
+
+    n = n % len(items)
+    return items[n:] + items[:n]

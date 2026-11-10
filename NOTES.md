@@ -101,4 +101,9 @@ Follow-up: the fix used `if not len(results):` — Pythonic is `if not results:`
 ## 2026-11-08 — 04 / ex07_records
 **Mistake:** (1) `emails_of` added `if user["email"]`, a filter the spec never asked for (a TS `.filter(u => u.email)` reflex). It silently drops `""` emails and still raises `KeyError` on a missing key. (2) `find_user` returned `{ "name", name }`, a **set** (comma, no colon), not the matching record, and returned `"Nobody"` (copied from the docstring example's *input*) instead of `None`. (3) `== True` in a filter. (4) Briefly swapped early return for a sentinel + `break`.
 **Correction:** Do exactly what the spec says and let bad data fail loudly, with no defensive filters unless the spec asks for one. A colon makes a dict and a comma-only `{}` makes a set (same root as the comprehension-brackets entry). When you find the item, return the object you already hold (`return user`). Read docstring examples as `call -> result`. Use truthiness, not `== True`. In a search function, return inside the loop and `return None` after it.
-**Status:** improving: all fixed after concept/nudge hints (2026-11-09); no stray prints this time. Minor leftover: `.get("name")` where `["name"]` fits
+**Status:** improving: all fixed after concept/nudge hints (2026-11-09); no stray prints this time. Minor leftover: `.get("name")` where `["name"]` fits. ex05_slicing (2026-11-09): clean, no stray prints, no extra guards, and the one guard it has (`if not items` before `% len(items)`) is needed
+
+## 2026-11-09 — 04 / ex05_slicing
+**Mistake:** Wrote `items[1:len(items) - 1]` instead of using a negative index. Not a bug, just the long way round.
+**Correction:** Negative indices count from the end: `-1` is the last item. So "drop first and last" is `items[1:-1]`, and "last three" is `s[-3:]`. Slices never raise `IndexError`, so `[1][1:-1]` and `[][1:-1]` both give `[]`. (JS `arr.slice(1, -1)` works the same way.)
+**Status:** improving: switched to `items[1:-1]` after the review (2026-11-09); it was typed `[1:- 1]` at first (a space after a unary minus). Check for `len(x) - k` inside brackets in later exercises
