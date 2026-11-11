@@ -17,7 +17,9 @@ def add_score(book: dict[str, list[int]], student: str, score: int) -> None:
     add_score(book, "Ada", 90)  -> book is now {"Ada": [90]}
     add_score(book, "Ada", 85)  -> book is now {"Ada": [90, 85]}
     """
-    raise NotImplementedError
+    student_score = book.get(student, [])
+    student_score.append(score)
+    book[student] = student_score
 
 
 def averages(book: dict[str, list[int]]) -> dict[str, float]:
@@ -27,7 +29,7 @@ def averages(book: dict[str, list[int]]) -> dict[str, float]:
 
     averages({"Ada": [90, 80], "Bo": [70]}) -> {"Ada": 85.0, "Bo": 70.0}
     """
-    raise NotImplementedError
+    return {student: sum(scores) / len(scores) for student, scores in book.items()}
 
 
 def honor_roll(book: dict[str, list[int]], threshold: float) -> list[str]:
@@ -37,7 +39,12 @@ def honor_roll(book: dict[str, list[int]], threshold: float) -> list[str]:
 
     honor_roll({"Ada": [95, 91], "Bo": [60]}, 90) -> ["Ada"]
     """
-    raise NotImplementedError
+    return sorted([student for student, avg_score in averages(book).items() if avg_score >= threshold])
+
+
+def _average_scores(item: dict[str, float]) -> float:
+    _, avg_score = item
+    return avg_score
 
 
 def class_stats(book: dict[str, list[int]]) -> tuple[int, str, float]:
@@ -52,4 +59,10 @@ def class_stats(book: dict[str, list[int]]) -> tuple[int, str, float]:
 
     class_stats({"Ada": [100], "Bo": [50, 50]}) -> (2, "Ada", 66.66666666666667)
     """
-    raise NotImplementedError
+    count = len(book)
+    avgs = averages(book)
+    best_student, _ = max(avgs.items(), key=_average_scores)
+    all_scores = [score for scores in book.values() for score in scores]
+    overall_avg = sum(all_scores) / len(all_scores)
+
+    return (count, best_student, overall_avg)

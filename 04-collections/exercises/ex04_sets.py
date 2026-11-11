@@ -9,7 +9,7 @@ def unique_tags(tags: list[str]) -> set[str]:
 
     unique_tags(["python", "web", "python", "cli"]) -> {"python", "web", "cli"}
     """
-    raise NotImplementedError
+    return set(tags)
 
 
 def common_interests(a: set[str], b: set[str]) -> set[str]:
@@ -17,7 +17,7 @@ def common_interests(a: set[str], b: set[str]) -> set[str]:
 
     common_interests({"chess", "hiking"}, {"hiking", "reading"}) -> {"hiking"}
     """
-    raise NotImplementedError
+    return a & b
 
 
 def only_in_first(a: set[str], b: set[str]) -> set[str]:
@@ -25,7 +25,7 @@ def only_in_first(a: set[str], b: set[str]) -> set[str]:
 
     only_in_first({"chess", "hiking"}, {"hiking", "reading"}) -> {"chess"}
     """
-    raise NotImplementedError
+    return a - b
 
 
 def has_duplicates(items: list[int]) -> bool:
@@ -35,4 +35,4 @@ def has_duplicates(items: list[int]) -> bool:
     has_duplicates([1, 2, 2]) -> True
     has_duplicates([]) -> False
     """
-    raise NotImplementedError
+    return len(set(items)) != len(items)

@@ -17,7 +17,7 @@ def squares_of_evens(nums: list[int]) -> list[int]:
 
     squares_of_evens([1, 2, 3, 4]) -> [4, 16]
     """
-    raise NotImplementedError
+    return [num * num for num in nums if num % 2 == 0]
 
 
 def name_lengths(names: list[str]) -> dict[str, int]:
@@ -31,7 +31,7 @@ def name_lengths(names: list[str]) -> dict[str, int]:
 
     name_lengths(["Ada", "Grace"]) -> {"Ada": 3, "Grace": 5}
     """
-    raise NotImplementedError
+    return {name: len(name) for name in names}
 
 
 def first_letters(words: list[str]) -> set[str]:
@@ -46,7 +46,7 @@ def first_letters(words: list[str]) -> set[str]:
 
     first_letters(["cat", "car", "dog"]) -> {"c", "d"}
     """
-    raise NotImplementedError
+    return {word[0] for word in words if word}
 
 
 def celsius_table(start: int, stop: int) -> dict[int, float]:
@@ -61,4 +61,10 @@ def celsius_table(start: int, stop: int) -> dict[int, float]:
 
     celsius_table(0, 2) -> {0: 32.0, 1: 33.8}
     """
-    raise NotImplementedError
+    return {c: c * 9 / 5 + 32 for c in range(start, stop)}
+
+
+if __name__ == "__main__":
+    print(squares_of_evens([1, 2, 3, 4]))
+    print(first_letters(["cat", "car", "dog"]))
+    print(celsius_table(0, 2))

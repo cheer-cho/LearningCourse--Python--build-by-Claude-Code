@@ -41,9 +41,9 @@ the finish line.*
 - [x] ✦ Checkpoint 3 passed
 
 ### 04 — Collections
-- [ ] Lesson read
-- [ ] Exercises ex01–ex08
-- [ ] ✦ Checkpoint 4 passed
+- [x] Lesson read
+- [x] Exercises ex01–ex08
+- [x] ✦ Checkpoint 4 passed
 
 ### 05 — Functions
 - [ ] Lesson read
