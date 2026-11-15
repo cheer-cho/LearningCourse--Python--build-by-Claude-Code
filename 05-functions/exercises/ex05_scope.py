@@ -2,12 +2,13 @@
 # global-scope bug to fix. Concepts: Local/Enclosing/Global/Builtins
 # lookup order, `global`, `nonlocal`.
 # Run: uv run pytest 05-functions -k ex05
+from collections.abc import Callable
 
 LEVEL = "global"
 total_clicks = 0
 
 
-def shadowed_local():
+def shadowed_local() -> str:
     """LEGB prediction: a module-level `LEVEL = "global"` is defined
     above. Define a LOCAL variable also named `LEVEL`, set it to
     `"local"`, and return it — a local name always shadows a global one
@@ -15,10 +16,11 @@ def shadowed_local():
 
     shadowed_local() -> "local"
     """
-    raise NotImplementedError
+    LEVEL = "local"
+    return LEVEL
 
 
-def read_global_total():
+def read_global_total() -> int:
     """LEGB prediction: `total_clicks` is defined at module scope above,
     currently `0`. Reading a global needs no special keyword — just use
     the name. Return `total_clicks + 1` (do NOT reassign `total_clicks`
@@ -26,10 +28,10 @@ def read_global_total():
 
     read_global_total() -> 1
     """
-    raise NotImplementedError
+    return total_clicks + 1
 
 
-def make_id_generator(start=1):
+def make_id_generator(start: int = 1) -> Callable[[], int]:
     """Return a zero-argument function that returns `start`, then
     `start + 1`, then `start + 2`, ... on each successive call — using
     a `nonlocal` counter captured in a closure (no module-level state).
@@ -42,10 +44,18 @@ def make_id_generator(start=1):
     other = make_id_generator(100)
     other() -> 100   # a separate, independent counter
     """
-    raise NotImplementedError
+    next_value = start
+
+    def id_generator() -> int:
+        nonlocal next_value
+        current_value = next_value
+        next_value = current_value + 1
+        return current_value
+
+    return id_generator
 
 
-def register_click():
+def register_click() -> int:
     """BUG: this should increment the module-level `total_clicks`
     counter and return the new value. As written, it's missing the
     `global` declaration — because this function ASSIGNS to
@@ -58,5 +68,6 @@ def register_click():
     register_click() -> 1
     register_click() -> 2   (called again right after, keeps counting)
     """
+    global total_clicks
     total_clicks = total_clicks + 1
     return total_clicks

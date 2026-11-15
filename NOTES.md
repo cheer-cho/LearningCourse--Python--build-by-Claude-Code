@@ -138,3 +138,8 @@ Follow-up (2026-11-10): fixed `averages` (dict comprehension) and removed the st
 **Mistake:** For `def f(a, /, b, *, c)`, guessed that `f(1, b=2, c=3)` fails. Treated `/` as if it made *every* parameter positional-only, not just the ones to its left.
 **Correction:** `/` and `*` are fences. Left of `/` must be positional, right of `*` must be keyword, and the zone between them takes either form. Demo: `playground/05-functions/param_zones.py` and `.md`.
 **Status:** open: explained (2026-11-14). Re-quiz cold later with a new signature
+
+## 2026-11-15 — 05 / ex05_scope
+**Mistake:** Annotated the factory `make_id_generator(start=1) -> int`. The factory returns the inner *function*; `int` is what that inner function returns when *it* is called. mypy: `Incompatible return value type (got "Callable[[], Any]", expected "int")`.
+**Correction:** A return hint describes the value after `return`. Here that is a function object, so the hint is `Callable[[], int]` (from `collections.abc`): "takes no args, returns an int". Same TS idea as `() => number` vs `number`.
+**Status:** improving — fixed after a hint (2026-11-15). Slipped on the way: wrote lowercase `callable[[], int]` (the built-in `callable()` is a check, not a type; `Callable` must be imported), and left `start=1` unhinted, which made it `Any` and caused a `no-any-return` error further down. Final version is clean under `mypy --strict`.
