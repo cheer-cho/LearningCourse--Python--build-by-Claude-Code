@@ -4,17 +4,19 @@
 # Run: uv run pytest 05-functions -k ex03
 
 
-def average(*nums):
+def average(*nums) -> float | None:
     """Return the mean of `nums`, or None if no arguments were passed.
 
     average(1, 2, 3) -> 2.0
     average(5) -> 5.0
     average() -> None
     """
-    raise NotImplementedError
+    if not nums:
+        return None
+    return sum(nums) / len(nums)
 
 
-def longest(*words):
+def longest(*words) -> str | None:
     """Return the longest string in `words`. On a tie, return whichever
     one appears first. Return None if no arguments were passed.
 
@@ -22,7 +24,9 @@ def longest(*words):
     longest("aa", "bb") -> "aa"
     longest() -> None
     """
-    raise NotImplementedError
+    if not words:
+        return None
+    return max(words, key=len)
 
 
 def html_tag(tag_name, **attrs):
@@ -36,7 +40,10 @@ def html_tag(tag_name, **attrs):
     html_tag("input", type="text", name="q") -> '<input name="q" type="text">'
     html_tag("br") -> "<br>"
     """
-    raise NotImplementedError
+    parts = [f'{key}="{value}"' for key, value in sorted(attrs.items())]
+    if not parts:
+        return f"<{tag_name}>"
+    return f"<{tag_name} {' '.join(parts)}>"
 
 
 def forward_call(func, *args, **kwargs):
@@ -47,4 +54,4 @@ def forward_call(func, *args, **kwargs):
     forward_call(max, 1, 5, 3) -> 5
     forward_call(sorted, [3, 1, 2], reverse=True) -> [3, 2, 1]
     """
-    raise NotImplementedError
+    return func(*args, **kwargs)

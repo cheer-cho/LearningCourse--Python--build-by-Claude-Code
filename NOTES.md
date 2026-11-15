@@ -128,3 +128,8 @@ Follow-up (2026-11-10): fixed `averages` (dict comprehension) and removed the st
 **Mistake:** Couldn't say how `items = items or []` differs from `if items is None: items = []`. Truthiness hasn't yet been connected to the None-sentinel.
 **Correction:** `or` checks for *falsy* values, not for `None`. A caller's empty list `[]` is falsy, so `or` replaces it with a new list, and the caller's list never gets the append. `is None` replaces only `None`. Use `is None` for sentinels, and `or` only when every falsy value should mean "use the default". Demo: `playground/05-functions/or_vs_is_none.py`.
 **Status:** open: explained on request (2026-11-13). Re-quiz cold in a later module
+
+## 2026-11-14 — 05 / ex03_star_args
+**Mistake:** `html_tag` (1) put the space after the tag name directly in the f-string template, so `html_tag("br")` gave `'<br >'`, and (2) sorted the *formatted* strings (`'a="1"'`) instead of sorting by attribute name. String comparison reaches the `=`, so `a1` sorted before `a`. The tests didn't catch (2), so a test was added.
+**Correction:** A separator only belongs where there is something to separate, so build the optional part first and handle the empty case. Sort by the data (`sorted(attrs.items())`, by key) before formatting it for display, never the display strings themselves.
+**Status:** improving: fixed both after concept/nudge hints (2026-11-14), and pulled the nested expression into a named `parts` variable, as suggested

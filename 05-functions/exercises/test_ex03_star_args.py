@@ -33,6 +33,10 @@ def test_html_tag_reorders_out_of_order_attrs():
     assert html_tag("input", type="text", name="q") == '<input name="q" type="text">'
 
 
+def test_html_tag_sorts_by_name_when_one_name_prefixes_another():
+    assert html_tag("x", a="1", a1="2") == '<x a="1" a1="2">'
+
+
 def test_html_tag_no_attrs():
     assert html_tag("br") == "<br>"
 
