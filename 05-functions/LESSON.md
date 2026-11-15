@@ -14,11 +14,11 @@ makes decorators, `sorted(key=...)`, and callbacks possible later.
 ```mermaid
 flowchart LR
     sig["def greet(name, greeting='Hi', *args, **kwargs):"]
-    call["greet('Ada', 'Yo', 1, 2, shout=True)"]
-    call --> a["'Ada' → name (positional)"]
-    call --> b["'Yo' → greeting (positional, overrides default)"]
-    call --> c["1, 2 → *args = (1, 2)"]
-    call --> d["shout=True → **kwargs = {'shout': True}"]
+    invoke["greet('Ada', 'Yo', 1, 2, shout=True)"]
+    invoke --> a["'Ada' → name (positional)"]
+    invoke --> b["'Yo' → greeting (positional, overrides default)"]
+    invoke --> c["1, 2 → *args = (1, 2)"]
+    invoke --> d["shout=True → **kwargs = {'shout': True}"]
 ```
 
 *What to notice: arguments are matched in a strict order — positional

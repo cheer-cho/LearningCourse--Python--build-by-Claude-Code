@@ -14,7 +14,7 @@ def make_user(name, *, admin=False, active=True):
     make_user("Bo", admin=True) -> {"name": "Bo", "admin": True, "active": True}
     make_user("Cy", True)  # TypeError — admin must be passed by keyword
     """
-    raise NotImplementedError
+    return {"name": name, "admin": admin, "active": active}
 
 
 def divide(a, b, /):
@@ -25,4 +25,4 @@ def divide(a, b, /):
     divide(6, 3) -> 2.0
     divide(a=6, b=3)  # TypeError — a, b must be positional
     """
-    raise NotImplementedError
+    return a / b

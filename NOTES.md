@@ -133,3 +133,8 @@ Follow-up (2026-11-10): fixed `averages` (dict comprehension) and removed the st
 **Mistake:** `html_tag` (1) put the space after the tag name directly in the f-string template, so `html_tag("br")` gave `'<br >'`, and (2) sorted the *formatted* strings (`'a="1"'`) instead of sorting by attribute name. String comparison reaches the `=`, so `a1` sorted before `a`. The tests didn't catch (2), so a test was added.
 **Correction:** A separator only belongs where there is something to separate, so build the optional part first and handle the empty case. Sort by the data (`sorted(attrs.items())`, by key) before formatting it for display, never the display strings themselves.
 **Status:** improving: fixed both after concept/nudge hints (2026-11-14), and pulled the nested expression into a named `parts` variable, as suggested
+
+## 2026-11-14 — 05 / ex04_keyword_only (follow-up question)
+**Mistake:** For `def f(a, /, b, *, c)`, guessed that `f(1, b=2, c=3)` fails. Treated `/` as if it made *every* parameter positional-only, not just the ones to its left.
+**Correction:** `/` and `*` are fences. Left of `/` must be positional, right of `*` must be keyword, and the zone between them takes either form. Demo: `playground/05-functions/param_zones.py` and `.md`.
+**Status:** open: explained (2026-11-14). Re-quiz cold later with a new signature
