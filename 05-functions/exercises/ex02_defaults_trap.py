@@ -11,10 +11,10 @@ def power(base, exp=2):
     power(2, 5) -> 32
     power(7, 0) -> 1
     """
-    raise NotImplementedError
+    return base**exp
 
 
-def add_item(item, items=[]):
+def add_item(item, items=None):
     """BUG: append `item` to `items` and return `items`. When the
     caller doesn't pass `items`, each call is supposed to start from a
     fresh, empty list — but a mutable default value is created ONCE,
@@ -30,5 +30,7 @@ def add_item(item, items=[]):
     add_item("a") -> ["a"]
     add_item("b") -> ["b"]      # NOT ["a", "b"]
     """
+    if items is None:
+        items = []
     items.append(item)
     return items
