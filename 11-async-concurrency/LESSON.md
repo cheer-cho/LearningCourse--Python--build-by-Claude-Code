@@ -1,5 +1,20 @@
 # 11 — Async & Concurrency
 
+<!-- toc -->
+**Contents**
+
+- [Why this exists](#why-this-exists)
+- [Sync vs async — one thread, many waits](#sync-vs-async--one-thread-many-waits)
+- [Coroutines](#coroutines)
+- [`gather` vs `create_task`](#gather-vs-create_task)
+- [Timeouts and errors](#timeouts-and-errors)
+- [Async iteration](#async-iteration)
+- [The GIL in 5 sentences](#the-gil-in-5-sentences)
+- [Threads and processes](#threads-and-processes)
+- [Gotchas](#gotchas)
+- [Try it now](#try-it-now)
+<!-- /toc -->
+
 ## Why this exists
 
 Most programs spend more time *waiting* than *working* — waiting for a

@@ -1,5 +1,21 @@
 # 13 — Testing & Quality
 
+<!-- toc -->
+**Contents**
+
+- [Why this exists](#why-this-exists)
+- [How pytest actually runs a test](#how-pytest-actually-runs-a-test)
+- [Anatomy of a good test](#anatomy-of-a-good-test)
+- [Fixtures](#fixtures)
+- [Parametrize: one test, many cases](#parametrize-one-test-many-cases)
+- [Test doubles: fake, stub, mock](#test-doubles-fake-stub-mock)
+- [Property-based testing](#property-based-testing)
+- [TDD: red, green, refactor](#tdd-red-green-refactor)
+- [Coverage and the other quality gate](#coverage-and-the-other-quality-gate)
+- [Gotchas](#gotchas)
+- [Try it now](#try-it-now)
+<!-- /toc -->
+
 ## Why this exists
 
 You've run `pytest` hundreds of times by now — someone else always wrote

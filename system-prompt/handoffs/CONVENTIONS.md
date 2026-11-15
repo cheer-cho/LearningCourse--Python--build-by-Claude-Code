@@ -83,6 +83,12 @@ Never create two importable files with the same basename anywhere.
   mindmap). Quote node labels containing special characters:
   `A["like this (safe)"]`. No experimental diagram types.
 
+## Table of contents
+- Every LESSON.md has a TOC between `<!-- toc -->` and `<!-- /toc -->`
+  right under the H1. Never edit it by hand — run
+  `uv run python scripts/toc.py` after adding or renaming a section
+  (`--check` exits 1 if any TOC is stale).
+
 ## Definition of done for a module (verify ALL before finishing)
 1. `uv run python -m compileall <module-dir>` — clean.
 2. `uv run pytest <module-dir>` — collects with no errors; every failure
@@ -92,6 +98,7 @@ Never create two importable files with the same basename anywhere.
    green against solutions).
 4. `uv run ruff check <module-dir>` — clean (solutions and stubs).
 5. LESSON.md and SUMMARY.md follow the spec flow and diagram rules.
+   `uv run python scripts/toc.py --check` — all TOCs up to date.
 6. You did NOT edit any file outside your module folder.
 
 Report back (final message): module name, exercise list (one line each),

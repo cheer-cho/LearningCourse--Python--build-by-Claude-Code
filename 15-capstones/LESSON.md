@@ -1,5 +1,16 @@
 # 15 — Capstone Projects
 
+<!-- toc -->
+**Contents**
+
+- [Why this exists](#why-this-exists)
+- [How to work a capstone](#how-to-work-a-capstone)
+- [Capstone A — task-manager CLI (`capstone_taskman.py`)](#capstone-a--task-manager-cli-capstone_taskmanpy)
+- [Capstone B — messy sales pipeline (`capstone_pipeline.py`)](#capstone-b--messy-sales-pipeline-capstone_pipelinepy)
+- [Capstone C — bookshelf service + client (`capstone_api.py`)](#capstone-c--bookshelf-service--client-capstone_apipy)
+- [Try it now](#try-it-now)
+<!-- /toc -->
+
 ## Why this exists
 
 Every earlier module handed you a stub with a docstring and a

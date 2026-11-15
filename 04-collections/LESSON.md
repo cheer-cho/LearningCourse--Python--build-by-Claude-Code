@@ -1,5 +1,21 @@
 # 04 — Collections
 
+<!-- toc -->
+**Contents**
+
+- [Why this exists](#why-this-exists)
+- [Which container?](#which-container)
+- [Lists](#lists)
+- [Slicing](#slicing)
+- [Tuples & unpacking](#tuples--unpacking)
+- [Dicts](#dicts)
+- [Sets](#sets)
+- [Comprehensions](#comprehensions)
+- [Copy vs alias](#copy-vs-alias)
+- [Gotchas](#gotchas)
+- [Try it now](#try-it-now)
+<!-- /toc -->
+
 ## Why this exists
 
 Real data almost never comes as one lonely value — it comes in groups:

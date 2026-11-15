@@ -1,5 +1,20 @@
 # 07 — Modules & Organization
 
+<!-- toc -->
+**Contents**
+
+- [Why this exists](#why-this-exists)
+- [Import forms](#import-forms)
+- [How Python resolves an import](#how-python-resolves-an-import)
+- [Packages](#packages)
+- [`if __name__ == "__main__":`, revisited for packages](#if-__name__--__main__-revisited-for-packages)
+- [Circular imports](#circular-imports)
+- ["Batteries included" — a stdlib tour](#batteries-included--a-stdlib-tour)
+- [Project hygiene](#project-hygiene)
+- [Gotchas](#gotchas)
+- [Try it now](#try-it-now)
+<!-- /toc -->
+
 ## Why this exists
 
 A real program is never one file. It's a pile of files that need each

@@ -1,5 +1,20 @@
 # 14 — Frameworks & Libraries
 
+<!-- toc -->
+**Contents**
+
+- [Why this exists](#why-this-exists)
+- [pydantic — runtime types](#pydantic--runtime-types)
+- [httpx — an HTTP client](#httpx--an-http-client)
+- [FastAPI — an HTTP server](#fastapi--an-http-server)
+- [Typer — a CLI](#typer--a-cli)
+- [SQLAlchemy 2.0 — a database](#sqlalchemy-20--a-database)
+- [numpy — arrays](#numpy--arrays)
+- [pandas — tables](#pandas--tables)
+- [Gotchas](#gotchas)
+- [Try it now](#try-it-now)
+<!-- /toc -->
+
 > **Setup:** this module needs extra dependencies. Run
 > `uv sync --all-groups` once before starting (installs pydantic, httpx,
 > FastAPI, Typer, SQLAlchemy, numpy, pandas). If you skip this, the
