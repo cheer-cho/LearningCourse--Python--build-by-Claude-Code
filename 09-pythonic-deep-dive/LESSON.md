@@ -1,5 +1,20 @@
 # 09 — Pythonic Deep-Dive
 
+<!-- toc -->
+**Contents**
+
+- [Why this exists](#why-this-exists)
+- [The data model](#the-data-model)
+- [Iteration protocol](#iteration-protocol)
+- [Generators](#generators)
+- [Decorators](#decorators)
+- [Context managers](#context-managers)
+- [functools & itertools — micro examples](#functools--itertools--micro-examples)
+- [What "Pythonic" means](#what-pythonic-means)
+- [Gotchas](#gotchas)
+- [Try it now](#try-it-now)
+<!-- /toc -->
+
 ## Why this exists
 
 `len(x)`. `for x in y`. `x + y`. `with x:`. `f"{x}"`. None of these are

@@ -1,5 +1,18 @@
 # 03 — Control Flow
 
+<!-- toc -->
+**Contents**
+
+- [Why this exists](#why-this-exists)
+- [`if` / `elif` / `else`](#if--elif--else)
+- [Truthiness](#truthiness)
+- [`while` and `for`](#while-and-for)
+- [`break`, `continue`, and the loop `else`](#break-continue-and-the-loop-else)
+- [`match` / `case`](#match--case)
+- [Gotchas](#gotchas)
+- [Try it now](#try-it-now)
+<!-- /toc -->
+
 ## Why this exists
 
 So far every program you've written runs top to bottom, once, doing the

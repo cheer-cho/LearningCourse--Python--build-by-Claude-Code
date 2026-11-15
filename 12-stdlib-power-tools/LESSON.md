@@ -1,5 +1,21 @@
 # 12 — Standard Library Power Tools
 
+<!-- toc -->
+**Contents**
+
+- [Why this exists](#why-this-exists)
+- [collections: beyond list/dict](#collections-beyond-listdict)
+- [datetime: naive vs aware](#datetime-naive-vs-aware)
+- [re: regex is a last resort](#re-regex-is-a-last-resort)
+- [enum: named constants with a type](#enum-named-constants-with-a-type)
+- [logging: not just fancier print](#logging-not-just-fancier-print)
+- [argparse: parser → add_argument → parse_args(argv)](#argparse-parser--add_argument--parse_argsargv)
+- [subprocess: run another program safely](#subprocess-run-another-program-safely)
+- [random (seeded) + statistics](#random-seeded--statistics)
+- [Gotchas](#gotchas)
+- [Try it now](#try-it-now)
+<!-- /toc -->
+
 ## Why this exists
 
 Before you `pip install` a package, check whether Python already ships

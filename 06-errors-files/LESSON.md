@@ -1,5 +1,20 @@
 # 06 — Errors, Files & Context Managers
 
+<!-- toc -->
+**Contents**
+
+- [Why this exists](#why-this-exists)
+- [`try` / `except` / `else` / `finally`](#try--except--else--finally)
+- [The exception hierarchy](#the-exception-hierarchy)
+- [`raise`, custom exceptions, and chaining](#raise-custom-exceptions-and-chaining)
+- [EAFP vs LBYL](#eafp-vs-lbyl)
+- [`with` — context managers](#with--context-managers)
+- [pathlib essentials](#pathlib-essentials)
+- [json and csv in 10 lines](#json-and-csv-in-10-lines)
+- [Gotchas](#gotchas)
+- [Try it now](#try-it-now)
+<!-- /toc -->
+
 ## Why this exists
 
 Things go wrong: a file isn't there, a user types letters where you

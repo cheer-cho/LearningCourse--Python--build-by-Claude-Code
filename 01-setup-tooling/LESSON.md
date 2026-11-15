@@ -1,5 +1,18 @@
 # 01 — Setup & Tooling
 
+<!-- toc -->
+**Contents**
+
+- [Why this exists](#why-this-exists)
+- [Your three tools](#your-three-tools)
+- [The red/green loop](#the-redgreen-loop)
+- [Running Python three ways](#running-python-three-ways)
+- [Anatomy of a traceback](#anatomy-of-a-traceback)
+- [`if __name__ == "__main__":`](#if-__name__--__main__)
+- [Gotchas](#gotchas)
+- [Try it now](#try-it-now)
+<!-- /toc -->
+
 ## Why this exists
 
 You can't learn a language by staring at it — you learn by running it,

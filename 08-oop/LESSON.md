@@ -1,5 +1,21 @@
 # 08 — Object-Oriented Python
 
+<!-- toc -->
+**Contents**
+
+- [Why this exists](#why-this-exists)
+- [Class anatomy](#class-anatomy)
+- [Instance vs class attributes](#instance-vs-class-attributes)
+- [Properties](#properties)
+- [Method kinds](#method-kinds)
+- [Inheritance & MRO](#inheritance--mro)
+- [Dunder basics](#dunder-basics)
+- [Dataclasses](#dataclasses)
+- [ABCs vs duck typing](#abcs-vs-duck-typing)
+- [Gotchas](#gotchas)
+- [Try it now](#try-it-now)
+<!-- /toc -->
+
 ## Why this exists
 
 You've been writing functions that take data and dicts that hold it.
