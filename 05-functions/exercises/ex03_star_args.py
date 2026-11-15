@@ -45,6 +45,10 @@ def html_tag(tag_name, **attrs):
         return f"<{tag_name}>"
     return f"<{tag_name} {' '.join(parts)}>"
 
+    # optional
+    # attr_str = "".join(f' {k}="{v}"' for k, v in sorted(attrs.items()))
+    # return f"<{tag_name}{attr_str}>"
+
 
 def forward_call(func, *args, **kwargs):
     """Call `func` with `args` and `kwargs` forwarded unchanged, and
