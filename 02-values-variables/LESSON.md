@@ -1,5 +1,20 @@
 # 02 — Values & Variables
 
+<!-- toc -->
+**Contents**
+
+- [Why this exists](#why-this-exists)
+- [The core value types](#the-core-value-types)
+- [Numbers](#numbers)
+- [Strings](#strings)
+- [f-strings](#f-strings)
+- [Names are labels, not boxes](#names-are-labels-not-boxes)
+- [`is` vs `==`, and `None`](#is-vs--and-none)
+- [Type conversions](#type-conversions)
+- [Gotchas](#gotchas)
+- [Try it now](#try-it-now)
+<!-- /toc -->
+
 ## Why this exists
 
 Every Python program is just values with names attached to them.

@@ -1,5 +1,21 @@
 # 05 — Functions
 
+<!-- toc -->
+**Contents**
+
+- [Why this exists](#why-this-exists)
+- [Anatomy of a call](#anatomy-of-a-call)
+- [Defaults + the mutable-default trap](#defaults--the-mutable-default-trap)
+- [`*args` / `**kwargs`: collecting and forwarding](#args--kwargs-collecting-and-forwarding)
+- [Keyword-only and positional-only parameters](#keyword-only-and-positional-only-parameters)
+- [Scope & LEGB](#scope--legb)
+- [Closures: functions that remember](#closures-functions-that-remember)
+- [`lambda`: single expressions only](#lambda-single-expressions-only)
+- [Recursion: base case + smaller problem](#recursion-base-case--smaller-problem)
+- [Gotchas](#gotchas)
+- [Try it now](#try-it-now)
+<!-- /toc -->
+
 ## Why this exists
 
 Copy-pasted code rots — fix a bug in one spot and forget the other three.

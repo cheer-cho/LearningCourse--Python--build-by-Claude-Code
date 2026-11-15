@@ -1,5 +1,21 @@
 # 10 — Type Hints & Static Typing
 
+<!-- toc -->
+**Contents**
+
+- [Why this exists](#why-this-exists)
+- [TS ↔ Python: the translation table](#ts--python-the-translation-table)
+- [Annotation syntax](#annotation-syntax)
+- [`X | None` and narrowing](#x--none-and-narrowing)
+- [Literal, TypedDict, NamedTuple vs dataclass](#literal-typeddict-namedtuple-vs-dataclass)
+- [Generics: TypeVar and Generic classes](#generics-typevar-and-generic-classes)
+- [Protocol — structural typing ("this is TS interfaces")](#protocol--structural-typing-this-is-ts-interfaces)
+- [`@overload` and `cast`](#overload-and-cast)
+- [Gradual typing strategy + running mypy](#gradual-typing-strategy--running-mypy)
+- [Gotchas](#gotchas)
+- [Try it now](#try-it-now)
+<!-- /toc -->
+
 ## Why this exists
 
 Every function you've written since module 05 already has a shape in
