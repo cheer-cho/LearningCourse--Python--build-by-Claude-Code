@@ -12,7 +12,7 @@ def sort_by_age(records):
     sort_by_age([{"first": "Bo", "age": 29}, {"first": "Ada", "age": 36}])
     -> [{"first": "Bo", "age": 29}, {"first": "Ada", "age": 36}]
     """
-    raise NotImplementedError
+    return sorted(records, key=lambda r: r["age"])
 
 
 def sort_by_last_first(records):
@@ -28,7 +28,7 @@ def sort_by_last_first(records):
         {"first": "Ada", "last": "Lovelace"},
     ]
     """
-    raise NotImplementedError
+    return sorted(records, key=lambda r: (r["last"], r["first"]))
 
 
 def top_by(items, key_func, n):
@@ -39,4 +39,4 @@ def top_by(items, key_func, n):
 
     top_by([3, 1, 4, 1, 5], key_func=lambda x: x, n=2) -> [5, 4]
     """
-    raise NotImplementedError
+    return sorted(items, key=key_func, reverse=True)[:n]

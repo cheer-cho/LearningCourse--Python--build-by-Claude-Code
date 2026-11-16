@@ -9,7 +9,13 @@
 - [`*args` / `**kwargs`: collecting and forwarding](#args--kwargs-collecting-and-forwarding)
 - [Keyword-only and positional-only parameters](#keyword-only-and-positional-only-parameters)
 - [Scope & LEGB](#scope--legb)
+  - [Read vs assign: the one rule behind it all](#read-vs-assign-the-one-rule-behind-it-all)
+  - [`global`: rebind a module-level name](#global-rebind-a-module-level-name)
+  - [`nonlocal`: rebind an enclosing function's name](#nonlocal-rebind-an-enclosing-functions-name)
+  - [Mutating isn't assigning](#mutating-isnt-assigning)
 - [Closures: functions that remember](#closures-functions-that-remember)
+  - [A closure captures the variable, not its value](#a-closure-captures-the-variable-not-its-value)
+  - [Closure or class?](#closure-or-class)
 - [`lambda`: single expressions only](#lambda-single-expressions-only)
 - [Recursion: base case + smaller problem](#recursion-base-case--smaller-problem)
 - [Gotchas](#gotchas)
@@ -363,7 +369,14 @@ sorted(words, key=lambda w: len(w))   # ['fig', 'kiwi', 'apple']
 def word_length(w):
     return len(w)
 sorted(words, key=word_length)
+
+# best of all here: the function already exists, so pass it directly
+sorted(words, key=len)
 ```
+
+→ Dedicated lesson: `playground/05-functions/lambda_functions.md` covers
+`key=`, tuple keys, lambda vs `def` vs comprehension, and the gotchas.
+Demo: `playground/05-functions/lambda_functions.py`
 
 ## Recursion: base case + smaller problem
 
