@@ -29,6 +29,13 @@ def test_flatten_empty_list():
     assert flatten([]) == []
 
 
+def test_flatten_long_flat_list():
+    # Recursion depth should track *nesting*, not length. Python's default
+    # recursion limit is ~1000, so a long flat list must not recurse per item.
+    long = list(range(5000))
+    assert flatten(long) == long
+
+
 def test_count_down_up_base_case():
     assert count_down_up(1) == "1 1"
 

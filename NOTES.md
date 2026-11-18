@@ -153,3 +153,8 @@ Follow-up (2026-11-10): fixed `averages` (dict comprehension) and removed the st
 **Mistake:** Predicted `top_by(["bb", "a", "cc"], key_func=len, n=2)` returns `["a", "bb"]`. Read the sort as ascending and forgot that `reverse=True` puts the biggest key first, even though the code was their own. Didn't know how ties are ordered.
 **Correction:** Trace it step by step: key values (2, 1, 2), then `reverse=True` (biggest first), then `[:2]` gives `['bb', 'cc']`. Python's sort is stable, so equal keys keep their input order, and that holds with `reverse=True` too. `sorted(...)[::-1]` is different, because it flips ties. Demo: `playground/05-functions/stable_sort_ties.md` + `.py`.
 **Status:** open: explained (2026-11-15). Re-quiz cold with a different tie
+
+## 2026-11-16 — 05 / ex08_recursion
+**Mistake:** `flatten` recursed on the head *and* the tail (`first, *rest = nested`), so it used one stack frame per item. A flat list of 2000 items hit `RecursionError`. (The course's reference had the same flaw. Test added.)
+**Correction:** Python has no tail-call optimization, and its limit is about 1000 frames. Recurse on *depth* (nested lists), iterate over *breadth* (items). See `playground/05-functions/recursion_depth.md`.
+**Status:** open
