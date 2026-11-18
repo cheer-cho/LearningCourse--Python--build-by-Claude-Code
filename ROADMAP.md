@@ -46,9 +46,9 @@ the finish line.*
 - [x] ✦ Checkpoint 4 passed
 
 ### 05 — Functions
-- [ ] Lesson read
-- [ ] Exercises ex01–ex08
-- [ ] ✦ Checkpoint 5 passed
+- [x] Lesson read
+- [x] Exercises ex01–ex08
+- [x] ✦ Checkpoint 5 passed
 
 ### 06 — Errors, Files & Context Managers
 - [ ] Lesson read

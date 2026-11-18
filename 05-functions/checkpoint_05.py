@@ -4,9 +4,12 @@
 # parameters with the None-sentinel, keyword-only parameters, closures,
 # and *args. Build them one at a time.
 # Run: uv run pytest 05-functions -k checkpoint
+from collections.abc import Callable
 
 
-def word_stats(text, *, min_length=1, stop_words=None):
+def word_stats(
+    text: str, *, min_length: int = 1, stop_words: set[str] | None = None
+) -> dict[str, int]:
     """Return a dict mapping each word in `text` to how many times it
     appears, after lower-casing and stripping the punctuation
     `.,!?;:"'` from each word's edges.
@@ -23,10 +26,20 @@ def word_stats(text, *, min_length=1, stop_words=None):
     word_stats("the cat sat", stop_words={"the"}) -> {"cat": 1, "sat": 1}
     word_stats("Cat, cat! dog.") -> {"cat": 2, "dog": 1}
     """
-    raise NotImplementedError
+    if stop_words is None:
+        stop_words = set()
+    counts = {}
+    raw = text.lower().split()
+    cleaned = [word.strip(".,!?;:\"'") for word in raw]
+    kept = [word for word in cleaned if word not in stop_words and len(word) >= min_length]
+
+    for word in kept:
+        counts[word] = counts.get(word, 0) + 1
+
+    return counts
 
 
-def make_formatter(prefix, suffix=""):
+def make_formatter(prefix, suffix="") -> Callable[[str], str]:
     """Return a function of one argument, `value`, that returns
     f"{prefix}{value}{suffix}". A closure factory — each call to
     `make_formatter` must produce an independent formatter.
@@ -37,10 +50,14 @@ def make_formatter(prefix, suffix=""):
     shout = make_formatter(">> ")
     shout("hello") -> ">> hello"
     """
-    raise NotImplementedError
+
+    def formatter(value):
+        return f"{prefix}{value}{suffix}"
+
+    return formatter
 
 
-def apply_all(value, *funcs):
+def apply_all(value, *funcs: Callable[[int], int]):
     """Thread `value` through every function in `funcs`, left to right
     — the result of each call becomes the input to the next — and
     return the final result. With no `funcs`, return `value` unchanged.
@@ -48,4 +65,6 @@ def apply_all(value, *funcs):
     apply_all(3, lambda x: x + 1, lambda x: x * 2) -> 8
     apply_all(5) -> 5
     """
-    raise NotImplementedError
+    for func in funcs:
+        value = func(value)
+    return value
