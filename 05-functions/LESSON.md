@@ -9,7 +9,13 @@
 - [`*args` / `**kwargs`: collecting and forwarding](#args--kwargs-collecting-and-forwarding)
 - [Keyword-only and positional-only parameters](#keyword-only-and-positional-only-parameters)
 - [Scope & LEGB](#scope--legb)
+  - [Read vs assign: the one rule behind it all](#read-vs-assign-the-one-rule-behind-it-all)
+  - [`global`: rebind a module-level name](#global-rebind-a-module-level-name)
+  - [`nonlocal`: rebind an enclosing function's name](#nonlocal-rebind-an-enclosing-functions-name)
+  - [Mutating isn't assigning](#mutating-isnt-assigning)
 - [Closures: functions that remember](#closures-functions-that-remember)
+  - [A closure captures the variable, not its value](#a-closure-captures-the-variable-not-its-value)
+  - [Closure or class?](#closure-or-class)
 - [`lambda`: single expressions only](#lambda-single-expressions-only)
 - [Recursion: base case + smaller problem](#recursion-base-case--smaller-problem)
 - [Gotchas](#gotchas)
@@ -30,11 +36,11 @@ makes decorators, `sorted(key=...)`, and callbacks possible later.
 ```mermaid
 flowchart LR
     sig["def greet(name, greeting='Hi', *args, **kwargs):"]
-    call["greet('Ada', 'Yo', 1, 2, shout=True)"]
-    call --> a["'Ada' → name (positional)"]
-    call --> b["'Yo' → greeting (positional, overrides default)"]
-    call --> c["1, 2 → *args = (1, 2)"]
-    call --> d["shout=True → **kwargs = {'shout': True}"]
+    invoke["greet('Ada', 'Yo', 1, 2, shout=True)"]
+    invoke --> a["'Ada' → name (positional)"]
+    invoke --> b["'Yo' → greeting (positional, overrides default)"]
+    invoke --> c["1, 2 → *args = (1, 2)"]
+    invoke --> d["shout=True → **kwargs = {'shout': True}"]
 ```
 
 *What to notice: arguments are matched in a strict order — positional
@@ -141,15 +147,132 @@ and stops at the first match. A local variable with the same name as a
 global one always wins inside its own function — that's shadowing, not
 an error.*
 
-Reading an outer name just works — no keyword needed. **Reassigning**
-one from inside a nested function needs a declaration, because Python
-decides a name is local to a function at compile time if it sees an
-assignment to it anywhere in that function's body:
+```python
+color = "global red"
 
-- `global x` — inside a function, "when I assign `x`, mean the
-  module-level `x`," not a new local.
-- `nonlocal x` — inside a nested function, "when I assign `x`, mean the
-  nearest enclosing function's `x`," not a new local.
+def outer():
+    color = "enclosing green"
+    def inner():
+        return color      # not Local → found in Enclosing
+    return inner()
+
+outer()   # 'enclosing green'
+color     # 'global red' — outer's `color` was a separate name
+```
+
+### Read vs assign: the one rule behind it all
+
+Reading an outer name just works. No keyword is needed.
+
+**Assigning** is different. Python decides which names are local
+*before the function runs*. It scans the whole body, and any name
+assigned anywhere in it (`=`, `+=`, `for x in`, `def x`) becomes local
+for the **whole** function, including the lines above the assignment.
+
+```mermaid
+flowchart TD
+    A["Function body uses name x"] --> B{"Is x assigned anywhere<br/>in this body?"}
+    B -- No --> C["x is looked up via LEGB<br/>(read-only access to outer x)"]
+    B -- Yes --> D{"Declared global x<br/>or nonlocal x?"}
+    D -- No --> E["x is LOCAL for the whole body"]
+    D -- "global x" --> F["x means the module-level x"]
+    D -- "nonlocal x" --> G["x means the enclosing function's x"]
+    E --> H{"Read before the<br/>first assignment?"}
+    H -- Yes --> I["UnboundLocalError"]
+    H -- No --> J["Works: a new local,<br/>outer x untouched"]
+```
+
+*What to notice: Python makes this choice at compile time, for the
+whole body. That's why reading a name on line 1 can fail because of an
+assignment on line 2.*
+
+```python
+score = 10
+
+def read_only():
+    return score + 1          # 11: read → finds the global
+
+def new_local():
+    score = 99                # a NEW local; the global stays 10
+    return score
+
+def broken():
+    score = score + 1         # UnboundLocalError!
+    return score              # `score` is local here, and empty on the right side
+```
+
+| What the function does with `x` | Keyword needed? | Result |
+| --- | --- | --- |
+| Only reads `x` | no | finds the outer `x` via LEGB |
+| Assigns `x`, never reads it first | no | a new local `x`; the outer one is untouched |
+| Reads, then assigns `x` | **yes** | without a keyword → `UnboundLocalError` |
+| Mutates `x` (`x.append(...)`, `x["k"] = v`) | no | changes the outer object, because `x` itself isn't rebound |
+
+### `global`: rebind a module-level name
+
+`global x` says "when I assign `x` in this function, I mean the
+module's `x`."
+
+```python
+debug = False
+
+def enable_debug():
+    global debug
+    debug = True
+
+enable_debug()
+debug    # True
+```
+
+Use it sparingly. Any function anywhere can change a global, so bugs
+are hard to trace. It also makes tests depend on the order they run in.
+Usually a return value, a parameter, or a closure is the better choice.
+
+### `nonlocal`: rebind an enclosing function's name
+
+`nonlocal x` says "when I assign `x`, I mean the nearest enclosing
+**function's** `x`." It never reaches the global scope.
+
+```python
+def make_limiter(max_calls):
+    remaining = max_calls
+    def allow():
+        nonlocal remaining          # without this: UnboundLocalError
+        if remaining == 0:
+            return False
+        remaining -= 1
+        return True
+    return allow
+
+allow = make_limiter(2)
+[allow() for _ in range(4)]   # [True, True, False, False]
+```
+
+| | `global x` | `nonlocal x` |
+| --- | --- | --- |
+| Rebinds | the module's `x` | the nearest enclosing function's `x` |
+| Where it's used | any function | only a nested function |
+| `x` must already exist? | no (it creates the global) | **yes**, otherwise `SyntaxError` |
+| Typical use | rare: module flags, caches | closures that keep state between calls |
+
+### Mutating isn't assigning
+
+`.append()` changes the object. It doesn't rebind the name, so you
+don't need a keyword.
+
+```python
+def make_logger():
+    history = []
+    def log(msg):
+        history.append(msg)   # same list, no rebinding → no nonlocal
+    return log, history
+```
+
+Coming from TypeScript: JS closures can reassign outer `let` variables
+with no keyword. Python makes you say `nonlocal`, because to Python a
+bare `x = ...` always means "make a new local".
+
+→ Demo: `playground/05-functions/legb_global_nonlocal.py`
 
 ## Closures: functions that remember
 
@@ -169,6 +292,67 @@ double(5)   # 10
 triple(5)   # 15 — independent state, separate closures
 ```
 
+Each call to the factory creates a fresh variable. The returned
+function holds on to it in a **cell**.
+
+```mermaid
+flowchart LR
+    F["make_multiplier(k)"] -- "call with 2" --> D["double"]
+    F -- "call with 3" --> T["triple"]
+    D --> C1[("cell: k = 2")]
+    T --> C2[("cell: k = 3")]
+```
+
+*What to notice: one factory, two calls, two separate cells. `double`
+and `triple` never share state.*
+
+You can see the cells directly:
+
+```python
+double.__code__.co_freevars          # ('k',)
+double.__closure__[0].cell_contents  # 2
+```
+
+### A closure captures the variable, not its value
+
+The cell holds the *variable*. The inner function reads it **when it
+runs**, not when it was defined. So if the variable changes later, the
+closure sees the new value:
+
+```python
+def make_reader():
+    mood = "calm"
+    def read():
+        return mood
+    def set_mood(new):
+        nonlocal mood
+        mood = new
+    return read, set_mood
+
+read, set_mood = make_reader()
+read()              # 'calm'
+set_mood("excited")
+read()              # 'excited': same cell, new value
+```
+
+This is called **late binding**. It's the cause of the loop-variable
+gotcha below, which ex06 covers.
+
+### Closure or class?
+
+A closure with `nonlocal` state is a tiny object with one method.
+
+| | Closure | Class |
+| --- | --- | --- |
+| State lives in | cells captured from the factory | `self.attributes` |
+| Good for | one behavior + a little private state | several methods, or state others inspect |
+| Callers see | a plain function | an object with attributes |
+
+Coming from TypeScript, it's tempting to reach for a class. If there's
+only one method, a closure is usually the more Pythonic choice.
+
+→ Demo: `playground/05-functions/closure_cells.py`
+
 ## `lambda`: single expressions only
 
 `lambda` builds a tiny, unnamed function that is **one expression** —
@@ -185,7 +369,14 @@ sorted(words, key=lambda w: len(w))   # ['fig', 'kiwi', 'apple']
 def word_length(w):
     return len(w)
 sorted(words, key=word_length)
+
+# best of all here: the function already exists, so pass it directly
+sorted(words, key=len)
 ```
+
+→ Dedicated lesson: `playground/05-functions/lambda_functions.md` covers
+`key=`, tuple keys, lambda vs `def` vs comprehension, and the gotchas.
+Demo: `playground/05-functions/lambda_functions.py`
 
 ## Recursion: base case + smaller problem
 
@@ -218,6 +409,8 @@ recurses forever (until Python's stack gives up with
 | --- | --- | --- |
 | `def f(items=[]):` | one shared list, mutated across every call that omits it | default to `None`, build the real value inside the body |
 | Closures capturing a loop variable | every closure sees the loop's *final* value, not the value at creation time | bind it as a default argument: `def h(i=i): ...`, or use a factory function |
+| Reading a name, then assigning it, in the same function | `UnboundLocalError`: the assignment made it local for the whole body | `global x` / `nonlocal x`, or better, return the new value |
+| `nonlocal x` with no enclosing function `x` | `SyntaxError: no binding for nonlocal 'x' found` | define `x` in the enclosing function first |
 | Shadowing a builtin (`list = [1, 2]`, `def sum(...)`) | the builtin is unreachable by that name for the rest of the scope | pick a different name (`items`, `total`) |
 | Forgetting `return` | the function runs, but silently gives back `None` | add the `return` — implicit `None` is easy to miss |
 

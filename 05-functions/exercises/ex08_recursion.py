@@ -16,7 +16,10 @@ def sum_digits(n):
     sum_digits(7) -> 7
     sum_digits(0) -> 0
     """
-    raise NotImplementedError
+    if n < 10:
+        return n
+
+    return n % 10 + sum_digits(n // 10)
 
 
 def flatten(nested):
@@ -32,7 +35,13 @@ def flatten(nested):
     flatten([1, 2, 3]) -> [1, 2, 3]
     flatten([[[[1]]], 2]) -> [1, 2]
     """
-    raise NotImplementedError
+    result = []
+    for item in nested:
+        if isinstance(item, list):
+            result.extend(flatten(item))  # go one level deeper
+        else:
+            result.append(item)  # plain value: no new frame
+    return result
 
 
 def count_down_up(n):
@@ -45,4 +54,7 @@ def count_down_up(n):
     count_down_up(1) -> "1 1"
     count_down_up(3) -> "3 2 1 1 2 3"
     """
-    raise NotImplementedError
+    if n == 1:
+        return "1 1"
+
+    return f"{n} {count_down_up(n - 1)} {n}"

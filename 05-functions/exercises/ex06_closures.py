@@ -3,9 +3,10 @@
 # instead of by value. Concepts: closures, factory functions, the
 # loop-capture trap.
 # Run: uv run pytest 05-functions -k ex06
+from collections.abc import Callable
 
 
-def make_multiplier(k):
+def make_multiplier(k: int) -> Callable[[int], int]:
     """Return a function of one argument, `n`, that returns `n * k`.
     Each call to `make_multiplier` must produce an independent
     closure — different `k` values must not interfere with each other.
@@ -14,10 +15,14 @@ def make_multiplier(k):
     triple(5) -> 15
     triple(0) -> 0
     """
-    raise NotImplementedError
+
+    def multiply(n: int) -> int:
+        return k * n
+
+    return multiply
 
 
-def make_accumulator():
+def make_accumulator() -> Callable[[int], int]:
     """Return a function of one argument, `amount`, that adds `amount`
     to a running total (starting at 0) and returns the new total. Each
     call to `make_accumulator` must start its own independent total.
@@ -27,10 +32,24 @@ def make_accumulator():
     acc(5) -> 15
     acc(-3) -> 12
     """
-    raise NotImplementedError
+    total = 0
+
+    def accumulator(amount: int) -> int:
+        nonlocal total
+        total += amount
+        return total
+
+    return accumulator
 
 
-def make_button_handlers(labels):
+def create_handler(i: int, label: str) -> Callable[[], str]:
+    def handler() -> str:
+        return f"{label} clicked (button {i})"
+
+    return handler
+
+
+def make_button_handlers(labels: list[str]) -> list[Callable[[], str]]:
     """BUG: this should return a list of zero-argument functions — one
     per label — where calling the Nth function returns
     f"{labels[N]} clicked (button {N})". As written, every closure
@@ -51,9 +70,5 @@ def make_button_handlers(labels):
     """
     handlers = []
     for i, label in enumerate(labels):
-
-        def handler():
-            return f"{label} clicked (button {i})"
-
-        handlers.append(handler)
+        handlers.append(create_handler(i, label))
     return handlers

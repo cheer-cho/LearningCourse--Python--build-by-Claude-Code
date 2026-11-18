@@ -42,7 +42,7 @@ flowchart LR
     eq["x == y"] --> deq["__eq__"]
     fstr["f'{x}'"] --> dstr["__str__ / __repr__"]
     withstmt["with x:"] --> denter["__enter__ / __exit__"]
-    call["x()"] --> dcall["__call__"]
+    invoke["x()"] --> dcall["__call__"]
     index["x[i]"] --> dgetitem["__getitem__"]
 ```
 
