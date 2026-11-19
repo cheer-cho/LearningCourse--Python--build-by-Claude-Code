@@ -1,3 +1,5 @@
+import pytest
+
 from ex03_else_finally import guarded_process
 
 
@@ -36,3 +38,13 @@ def test_guarded_process_appends_to_existing_log():
     log = ["previous"]
     guarded_process({"divisor": 2}, log)
     assert log == ["previous", "start", "ok", "cleanup"]
+
+
+def test_guarded_process_unexpected_error_propagates():
+    # Only KeyError and ZeroDivisionError are "expected". Anything else
+    # (like a str divisor) is a real bug and must escape -- but the
+    # finally block still runs on the way out.
+    log = []
+    with pytest.raises(TypeError):
+        guarded_process({"divisor": "4"}, log)
+    assert log == ["start", "cleanup"]
