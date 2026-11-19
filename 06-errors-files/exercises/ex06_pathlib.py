@@ -2,8 +2,6 @@
 # `Path` construction and joining with `/`, `.glob`, `.stem`, `.suffix`,
 # `.with_suffix`. Tests build real (temporary) directory trees.
 # Run: uv run pytest 06-errors-files -k ex06
-
-
 def build_report_path(base, name):
     """Return the Path for a report file inside a "reports" subfolder of
     `base`, named `f"{name}.txt"`.
@@ -13,7 +11,7 @@ def build_report_path(base, name):
 
     build_report_path(Path("/tmp"), "q1") -> Path("/tmp/reports/q1.txt")
     """
-    raise NotImplementedError
+    return base / "reports" / f"{name}.txt"
 
 
 def find_py_files(folder):
@@ -25,7 +23,7 @@ def find_py_files(folder):
     find_py_files(folder containing b.py, a.py, notes.txt)
         -> [folder / "a.py", folder / "b.py"]
     """
-    raise NotImplementedError
+    return sorted(folder.glob("*.py"))
 
 
 def swap_suffix(path, new_suffix):
@@ -34,4 +32,4 @@ def swap_suffix(path, new_suffix):
 
     swap_suffix(Path("data/report.csv"), ".json") -> Path("data/report.json")
     """
-    raise NotImplementedError
+    return path.with_suffix(new_suffix)
