@@ -29,4 +29,7 @@ def withdraw(balance, amount):
     withdraw(100, 150) -> raises InsufficientFunds with .needed == 150
                            and .available == 100
     """
-    raise NotImplementedError
+    if amount > balance:
+        raise InsufficientFunds(needed=amount, available=balance)
+
+    return balance - amount
