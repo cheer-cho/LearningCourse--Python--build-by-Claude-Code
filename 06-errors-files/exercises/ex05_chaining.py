@@ -24,4 +24,7 @@ def load_setting(raw, key):
     load_setting({"retries": "many"}, "retries") -> raises ConfigError,
         __cause__ is a ValueError
     """
-    raise NotImplementedError
+    try:
+        return int(raw[key])
+    except (KeyError, ValueError) as e:
+        raise ConfigError(f"bad setting: {key}") from e
