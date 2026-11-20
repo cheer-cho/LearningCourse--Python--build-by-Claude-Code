@@ -203,4 +203,4 @@ Follow-up (2026-11-19): `write_lines` passes 3/3, but it kept the `for` loop and
 
 ## 2026-11-20 — 06 / ex05_chaining
 **Mistake:** None. Green on the first run, with no hints. The `try` wraps one expression, both types are caught in one tuple, the message matches exactly, and `from e` keeps the cause. That is the pattern checkpoint_06 needed, written unaided.
-**Status:** improving: re-quiz cold: what happens with `load_setting({"retries": None}, "retries")`? (`int(None)` raises `TypeError`, which isn't caught, so it escapes as-is.)
+**Status:** improving: re-quiz cold: what happens with `load_setting({"retries": None}, "retries")`? (`int(None)` raises `TypeError`, which isn't caught, so it escapes as-is.) Asked on 2026-11-20 and guessed "returns None?". Explained with demo `uncaught_type_error.py` + `.md`. Re-check: an exception means *no* return value, and an unlisted type skips `except`.

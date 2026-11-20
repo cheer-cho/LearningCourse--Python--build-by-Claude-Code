@@ -128,6 +128,8 @@ with open(path, encoding="utf-8") as f:
 7. What does `Path("a") / "b"` produce, and what type is it?
 8. `csv.DictReader` gives you a dict per row — what type are the
    values, and what do you have to do to get an `int`?
+9. `load_setting` catches `(KeyError, ValueError)`. What happens when
+   the value is `None`: does it return `None`, and does the program crash?
 
 <details><summary>Answers</summary>
 
@@ -150,5 +152,8 @@ with open(path, encoding="utf-8") as f:
    separator under the hood).
 8. Every value is a `str` (CSV has no types); convert with
    `int(row["field"])` yourself.
+9. Neither, by default. `int(None)` raises `TypeError`, which isn't listed,
+   so it skips the `except` and climbs to the caller. Nothing is returned.
+   The program crashes only if no caller up the stack catches it.
 
 </details>

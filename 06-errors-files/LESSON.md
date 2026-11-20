@@ -6,6 +6,7 @@
 - [Why this exists](#why-this-exists)
 - [`try` / `except` / `else` / `finally`](#try--except--else--finally)
 - [The exception hierarchy](#the-exception-hierarchy)
+- [Where an uncaught exception goes](#where-an-uncaught-exception-goes)
 - [`raise`, custom exceptions, and chaining](#raise-custom-exceptions-and-chaining)
 - [EAFP vs LBYL](#eafp-vs-lbyl)
 - [`with` — context managers](#with--context-managers)
@@ -88,6 +89,48 @@ except Exception:
 
 Python checks `except` clauses top to bottom and stops at the first
 match, so order them specific → general.
+
+## Where an uncaught exception goes
+
+A raised exception never "returns `None`". The function stops right
+there and returns nothing. The exception then climbs to the caller,
+then that caller's caller, until an `except` matches its type.
+
+```mermaid
+flowchart BT
+    L["load_setting<br/>int(None) raises TypeError"] -->|"not caught<br/>(only KeyError, ValueError listed)"| S["start_app<br/>no try: passes it up"]
+    S -->|not caught| M{"main<br/>has a matching except?"}
+    M -->|yes| H["handled: log it, keep running"]
+    M -->|no| T["traceback printed,<br/>program exits (code 1)"]
+```
+
+*What to notice: an `except` only stops the types it lists. Any other
+type skips it and keeps going up. The program crashes only if no frame
+on the way up catches it.*
+
+```python
+def load_setting(raw, key):
+    try:
+        return int(raw[key])
+    except (KeyError, ValueError) as e:
+        raise ConfigError(f"bad setting: {key}") from e
+
+load_setting({"retries": "many"}, "retries")  # ConfigError (wrapped)
+load_setting({"retries": None}, "retries")    # TypeError: not listed, escapes as-is
+```
+
+A crash with a traceback is often the **good** outcome. It names the
+file, the line, and the bad value. A silent `None` would let the bad
+value spread and fail later, far from the real cause.
+
+| Kind of error | Where to catch it |
+| --- | --- |
+| expected (`ConfigError`, missing file) | in the caller that has a fallback, e.g. use a default |
+| a bug (`TypeError`, `AttributeError`) | nowhere deep. One top-level safety net logs it loudly |
+
+> **Coming from TypeScript:** same as an uncaught `throw` in Node: it
+> bubbles up, and if nothing catches it, the process exits. Web
+> frameworks in both languages add the top-level net for you.
 
 ## `raise`, custom exceptions, and chaining
 
