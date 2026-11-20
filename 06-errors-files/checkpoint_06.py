@@ -4,6 +4,7 @@
 # This combines everything in the module — EAFP file handling, custom
 # exceptions, chaining, and json I/O.
 # Run: uv run pytest 06-errors-files -k checkpoint
+import json
 
 
 class ContactError(Exception):
@@ -25,7 +26,13 @@ def load_contacts(path):
     load_contacts(path to '{"Ada": "ada@x.com"}') -> {"Ada": "ada@x.com"}
     load_contacts(path to 'not json') -> raises ContactError
     """
-    raise NotImplementedError
+    try:
+        with open(path, encoding="utf-8") as contacts_file:
+            return json.load(contacts_file)
+    except FileNotFoundError:
+        return {}
+    except json.JSONDecodeError as e:
+        raise ContactError(f"corrupt contacts file: {path}") from e
 
 
 def save_contacts(path, contacts):
@@ -34,7 +41,8 @@ def save_contacts(path, contacts):
     save_contacts(path, {"Ada": "ada@x.com"}) -> file at `path` now
     holds valid JSON for that dict.
     """
-    raise NotImplementedError
+    with open(path, "w", encoding="utf-8") as contacts_file:
+        json.dump(contacts, contacts_file, indent=2)
 
 
 def add_contact(path, name, email):
@@ -50,4 +58,8 @@ def add_contact(path, name, email):
     add_contact(path, "Ada", "new@x.com") when "Ada" already exists ->
         raises ContactError, file is left unchanged
     """
-    raise NotImplementedError
+    contacts = load_contacts(path)
+    if name in contacts:
+        raise ContactError(f"contact already exists: {name}")
+    contacts[name] = email
+    save_contacts(path, contacts)

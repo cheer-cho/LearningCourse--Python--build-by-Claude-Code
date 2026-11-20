@@ -1,6 +1,6 @@
 # Scenario: a "guarded" processing step that logs exactly which phase it
-# reached, useful for debugging pipelines. Concepts: try/except/else/
-# finally branch order, appending to a shared log list.
+# reached, useful for debugging pipelines.
+# Concepts: try/except/else/ finally branch order, appending to a shared log list.
 # Run: uv run pytest 06-errors-files -k ex03
 
 
@@ -24,4 +24,17 @@ def guarded_process(data, log):
     guarded_process({"divisor": 0}, log) -> None, log == ["start", "error", "cleanup"]
     guarded_process({}, log) -> None, log == ["start", "error", "cleanup"]
     """
-    raise NotImplementedError
+    log.append("start")
+    result = None
+
+    try:
+        divisor = data["divisor"]
+        result = 100 / divisor
+    except (KeyError, ZeroDivisionError):
+        log.append("error")
+        return None
+    else:
+        log.append("ok")
+        return result
+    finally:
+        log.append("cleanup")

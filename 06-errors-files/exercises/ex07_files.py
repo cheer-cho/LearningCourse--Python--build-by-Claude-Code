@@ -12,7 +12,8 @@ def write_lines(path, lines):
 
     write_lines(path, ["a", "b"]) -> file at `path` now contains "a\\nb\\n"
     """
-    raise NotImplementedError
+    with open(path, "w", encoding="utf-8") as f:
+        f.writelines(f"{line}\n" for line in lines)
 
 
 def count_words(path):
@@ -24,7 +25,19 @@ def count_words(path):
 
     file containing "the quick brown fox" -> count_words(path) == 4
     """
-    raise NotImplementedError
+    # with open(path, encoding="utf-8") as f:
+    #     text = f.read()
+
+    # return len(text.split())
+
+    # total = 0
+    # with open(path, encoding="utf-8") as f:
+    #     for line in f:
+    #         total += len(line.split())
+
+    # return total
+    with open(path, encoding="utf-8") as f:
+        return sum(len(line.split()) for line in f)
 
 
 def append_log(path, message):
@@ -36,4 +49,5 @@ def append_log(path, message):
     append_log(path, "started") called twice -> file contains
     "started\\nstarted\\n"
     """
-    raise NotImplementedError
+    with open(path, "a", encoding="utf-8") as f:
+        f.write(f"{message}\n")

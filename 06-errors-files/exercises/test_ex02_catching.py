@@ -40,3 +40,7 @@ def test_first_working_skips_multiple_failures():
 def test_first_working_raises_last_exception_when_all_fail():
     with pytest.raises(ZeroDivisionError):
         first_working([lambda: int("x"), lambda: 1 / 0])
+
+
+def test_first_working_skips_any_exception_type():
+    assert first_working([lambda: {}["missing"], lambda: None + 1, lambda: "ok"]) == "ok"

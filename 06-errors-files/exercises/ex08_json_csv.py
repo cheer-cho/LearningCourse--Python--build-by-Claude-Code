@@ -15,7 +15,8 @@ def save_config(path, config):
     save_config(path, {"debug": True}) -> file at `path` contains valid
     JSON for {"debug": True}
     """
-    raise NotImplementedError
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(config, f, indent=2)
 
 
 def load_config(path):
@@ -25,7 +26,9 @@ def load_config(path):
 
     file containing '{"debug": true}' -> load_config(path) == {"debug": True}
     """
-    raise NotImplementedError
+    with open(path, encoding="utf-8") as f:
+        config = json.load(f)
+    return config
 
 
 def read_inventory(path):
@@ -40,4 +43,9 @@ def read_inventory(path):
         screws,250
     -> [{"name": "bolts", "quantity": 100}, {"name": "screws", "quantity": 250}]
     """
-    raise NotImplementedError
+    rows = []
+    with open(path, encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            row["quantity"] = int(row["quantity"])
+            rows.append(row)
+    return rows

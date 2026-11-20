@@ -51,9 +51,9 @@ the finish line.*
 - [x] ✦ Checkpoint 5 passed
 
 ### 06 — Errors, Files & Context Managers
-- [ ] Lesson read
-- [ ] Exercises ex01–ex08
-- [ ] ✦ Checkpoint 6 passed
+- [x] Lesson read
+- [x] Exercises ex01–ex08
+- [x] ✦ Checkpoint 6 passed (code given on request — re-quiz before module 08)
 
 ### 07 — Modules & Organization
 - [ ] Lesson read

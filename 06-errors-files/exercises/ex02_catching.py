@@ -10,7 +10,10 @@ def safe_divide(a, b):
     safe_divide(10, 2) -> 5.0
     safe_divide(10, 0) -> None
     """
-    raise NotImplementedError
+    try:
+        return a / b
+    except ZeroDivisionError:
+        return None
 
 
 def int_or_default(text, default):
@@ -22,7 +25,11 @@ def int_or_default(text, default):
     int_or_default("42", 0) -> 42
     int_or_default("nope", 0) -> 0
     """
-    raise NotImplementedError
+    try:
+        num = int(text)
+        return num
+    except ValueError:
+        return default
 
 
 def first_working(funcs):
@@ -35,4 +42,11 @@ def first_working(funcs):
     first_working([lambda: 1 / 0, lambda: 7]) -> 7
     first_working([lambda: 1 / 0]) -> raises ZeroDivisionError
     """
-    raise NotImplementedError
+    last_error = None
+    for func in funcs:
+        try:
+            return func()
+        except Exception as e:
+            last_error = e
+
+    raise last_error
