@@ -30,6 +30,14 @@ def test_load_contacts_corrupt_json_chains_json_decode_error(tmp_path):
     assert isinstance(excinfo.value.__cause__, json.JSONDecodeError)
 
 
+def test_load_contacts_corrupt_json_message_names_problem_and_path(tmp_path):
+    path = tmp_path / "contacts.json"
+    path.write_text("not json", encoding="utf-8")
+    with pytest.raises(ContactError) as excinfo:
+        load_contacts(path)
+    assert str(excinfo.value) == f"corrupt contacts file: {path}"
+
+
 def test_save_contacts_writes_json(tmp_path):
     path = tmp_path / "contacts.json"
     save_contacts(path, {"Ada": "ada@x.com"})
